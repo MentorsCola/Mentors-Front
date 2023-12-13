@@ -6,10 +6,14 @@ import Link from 'next/link'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
+  const LoginFun = async e => {
+    // await axios
+  }
   return <S.Back>
     <S.Main onSubmit={e => {
       e.preventDefault()
       console.log('wow')
+      LoginFun()
     }}>
       <S.Title>
         로그인
