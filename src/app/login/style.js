@@ -13,7 +13,7 @@ export const Main = styled.form`
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  padding: 20px ;
+  padding: 25px ;
   color: #505050;
   a{
     margin-top: 20px;
@@ -48,8 +48,13 @@ export const Button = styled.button`
   background-color: #8ABF54;
   padding: 10px 0;
   cursor: pointer;
-  width: 330px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 320px;
   border: none;
   margin-top: 50px;
   border-radius: 2px;
+  &:hover{
+    background-color: darken(#8ABF54, 10%);
+  }
 `
