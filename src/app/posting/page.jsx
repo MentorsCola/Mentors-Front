@@ -86,8 +86,8 @@ export default function Posting() {
         <S.AddButton onClick={e => PressKey('h4')}>H4</S.AddButton>
         <S.DivideButton />
         <S.AddButton onClick={e => PressKey('bold')}>B</S.AddButton>
-        <S.AddButton onClick={e => PressKey('italic')}>I</S.AddButton>
-        <S.AddButton onClick={e => PressKey('cancel')}>T</S.AddButton>
+        <S.AddButton onClick={e => PressKey('italic')} style={{ fontStyle: 'italic' }}>I</S.AddButton>
+        <S.AddButton onClick={e => PressKey('cancel')} style={{ textDecoration: 'line-through' }}>T</S.AddButton>
         <S.DivideButton />
         <S.AddButton onClick={e => PressKey('quote')}>”</S.AddButton>
         <S.AddButton onClick={e => PressKey('link')}>
@@ -115,7 +115,7 @@ export default function Posting() {
         </S.BorderButtons>
       </S.BottomButtons>
     </S.PostBackground>
-    <S.PreviewBackground dangerouslySetInnerHTML={{ __html: new Showdown.Converter().makeHtml(textarea.replace(/\n/g, '\n\n')) }}>
+    <S.PreviewBackground dangerouslySetInnerHTML={{ __html: new Showdown.Converter({ strikethrough: true }).makeHtml(textarea.replace(/\n/g, '\n\n')) }}>
     </S.PreviewBackground>
   </S.Background>
 } 

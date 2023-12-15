@@ -32,6 +32,7 @@ export const PreviewBackground = styled.div`
   overflow-y: scroll;
   border-right: 3px solid #D9D9D9;
   padding: 50px;
+  overflow-x: hidden;
   
   &::-webkit-scrollbar{
     width: 5px;
@@ -148,6 +149,7 @@ export const TextArea = styled.textarea`
   background-color: #F5F5F5;
   color: black;
   border: none;
+  outline:none;
   resize: none;
   &::-webkit-scrollbar{
     width: 5px;
