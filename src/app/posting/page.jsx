@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import Showdown from 'showdown';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Posting() {
   const [title, setTitle] = useState('');
@@ -29,6 +31,7 @@ export default function Posting() {
   const Submit = async e => {
     //textarea.replace(/\n/g, '\n\n')
     // await axios
+    toast("hello")
   }
   const PressKey = key => {
     let press;
@@ -128,5 +131,6 @@ export default function Posting() {
     </S.PostBackground>
     <S.PreviewBackground dangerouslySetInnerHTML={{ __html: new Showdown.Converter({ strikethrough: true }).makeHtml(textarea.replace(/\n/g, '\n\n')) }}>
     </S.PreviewBackground>
+    <ToastContainer />
   </S.Background>
 } 
