@@ -29,8 +29,33 @@ export const PreviewBackground = styled.div`
   flex-direction: column;
   width: 50vw;
   height: 100vh;
+  overflow-y: scroll;
   border-right: 3px solid #D9D9D9;
   padding: 50px;
+  
+  &::-webkit-scrollbar{
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background-color: #D9D9D9;
+  }
+  pre{
+    background-color: #D9D9D9;
+    padding: 10px;
+    code{
+      font-family: 'Pretendard-Regular';
+    }
+  }
+  blockquote{
+    background-color: #D9D9D9;
+    padding:10px;
+    border-left: 5px solid #8ABF54;
+    margin: 5px 0;
+  }
+  a{
+    color:#8ABF54;
+    font-weight: bold;
+  }
 `
 
 export const TitleInput = styled.input`
@@ -46,6 +71,30 @@ export const DivideDiv = styled.div`
   width: 20vw;
   height: 7px;
   margin: 30px 0;
+`
+
+export const TagDiv = styled.div`
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  
+  &::-webkit-scrollbar{
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background-color: #D9D9D9;
+  }
+`
+
+export const Tag = styled.p`
+  background-color: #8ABF54;
+  padding: 10px;  
+  white-space: nowrap;
+  border-radius: 10px;
+  display: inline-flex;
+  margin: 0 5px;
+  color: white;
 `
 
 export const TagsInput = styled.input`
@@ -145,4 +194,9 @@ export const BorderButton = styled.button`
   border-radius: 3px;
   font-weight: bold;
   padding: 3px 0;
+  &:hover{
+    background-color: #40631F;
+    border: 3px solid #40631F;
+    color: white;
+  }
 `
