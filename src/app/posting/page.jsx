@@ -33,40 +33,39 @@ export default function Posting() {
     let press;
     switch (key) {
       case 'h1':
-        press = '\n# ';
+        press = '\n# 제목1';
         break;
       case 'h2':
-        press = '\n## ';
+        press = '\n## 제목2';
         break;
       case 'h3':
-        press = '\n### ';
+        press = '\n### 제목3';
         break;
       case 'h4':
-        press = '\n#### ';
+        press = '\n#### 제목4';
         break;
       case 'bold':
-        press = '**글**'
+        press = '**굵은**'
         break;
       case 'italic':
-        press = '*글*';
+        press = '*이탤릭*';
         break;
       case 'cancel':
-        press = `~글~`;
+        press = `~~취소선~~`;
         break;
       case 'img':
-        press = `\n![]() `;
+        press = `\n![이미지](https://example.com) `;
         break;
       case 'link':
         press = `\n[제목](https://example.com) `;
         break;
       case 'quote':
-        press = `\n> `;
+        press = `\n>인용문구`;
         break;
       case 'code':
-        press = '\n```\n```\n';
+        press = '\n```\n코드\n```\n';
         break;
     }
-    console.log(key)
     const current = document.querySelector('textarea').selectionStart;
     const text = textarea.slice(0, current) + press + textarea.slice(current);
     setTextarea(text);
