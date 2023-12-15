@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './style';
 import Showdown from 'showdown';
 
@@ -8,6 +8,7 @@ export default function Posting() {
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState([])
   const [textarea, setTextarea] = useState('')
+  const [file, setFile] = useState('')
   const DivideTags = e => { //when pressing "space" key.
     if (e.code === 'Backspace' && tag.trim().length === 0) {
       let list = [...tags]
@@ -54,7 +55,8 @@ export default function Posting() {
         press = `~~취소선~~`;
         break;
       case 'img':
-        press = `\n![이미지](https://example.com) `;
+        press = `\n![이미지](${file}) `;
+        console.log(file)
         break;
       case 'link':
         press = `\n[제목](https://example.com) `;
@@ -72,6 +74,12 @@ export default function Posting() {
     document.querySelector('textarea').focus()
     document.querySelector('textarea').setSelectionRange(current + press.length, current + textarea.length);
   }
+  useEffect(e => {
+    if (!file) {
+      return;
+    }
+    PressKey('img')
+  }, [file])
   return <S.Background>
     <S.PostBackground>
       <S.TitleInput value={title} onChange={e => setTitle(e.target.value)} placeholder='제목을 입력해주세요' />
@@ -95,10 +103,13 @@ export default function Posting() {
             <path d="M2.875 7C2.875 4.8625 4.6125 3.125 6.75 3.125H11.75V0.75H6.75C3.3 0.75 0.5 3.55 0.5 7C0.5 10.45 3.3 13.25 6.75 13.25H11.75V10.875H6.75C4.6125 10.875 2.875 9.1375 2.875 7ZM8 8.25H18V5.75H8V8.25ZM19.25 0.75H14.25V3.125H19.25C21.3875 3.125 23.125 4.8625 23.125 7C23.125 9.1375 21.3875 10.875 19.25 10.875H14.25V13.25H19.25C22.7 13.25 25.5 10.45 25.5 7C25.5 3.55 22.7 0.75 19.25 0.75Z" fill="#858E96" />
           </svg>
         </S.AddButton>
-        <S.AddButton onClick={e => PressKey('img')}>
-          <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22.5 20.75V3.25C22.5 1.875 21.375 0.75 20 0.75H2.5C1.125 0.75 0 1.875 0 3.25V20.75C0 22.125 1.125 23.25 2.5 23.25H20C21.375 23.25 22.5 22.125 22.5 20.75ZM6.875 13.875L10 17.6375L14.375 12L20 19.5H2.5L6.875 13.875Z" fill="#858E96" />
-          </svg>
+        <S.AddButton>
+          <label>
+            <input type='file' value={file} onChange={e => setFile(e.target.value)} style={{ display: 'none' }} />
+            <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.5 20.75V3.25C22.5 1.875 21.375 0.75 20 0.75H2.5C1.125 0.75 0 1.875 0 3.25V20.75C0 22.125 1.125 23.25 2.5 23.25H20C21.375 23.25 22.5 22.125 22.5 20.75ZM6.875 13.875L10 17.6375L14.375 12L20 19.5H2.5L6.875 13.875Z" fill="#858E96" />
+            </svg>
+          </label>
         </S.AddButton>
         <S.AddButton onClick={e => PressKey('code')}>
           <svg width="31" height="12" viewBox="0 0 31 12" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -137,6 +137,9 @@ export const AddButton = styled.button`
   color: #858E96;
   border: none;
   transition: ease 0.5s;
+  label{
+    cursor: pointer;
+  }
   &:hover{
     color: black;
   }
