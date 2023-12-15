@@ -79,7 +79,7 @@ export const RegenerateButton = styled.div`
     }
   }
   &:hover{
-    animation: spin 1s infinite;
+    animation: spin 1s;
   }
   transition: ease;
 `
