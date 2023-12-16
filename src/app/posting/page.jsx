@@ -29,9 +29,21 @@ export default function Posting() {
     setTags([...tags, tag.trim()])
   }
   const Submit = async e => {
+    if (textarea.length <= 0) {
+      toast.error("글을 작성해주세요.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"
+      })
+      return;
+    }
     //textarea.replace(/\n/g, '\n\n')
     // await axios
-    toast("hello")
   }
   const PressKey = key => {
     let press;
