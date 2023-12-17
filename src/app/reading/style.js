@@ -104,6 +104,7 @@ export const countComment = styled.div`
 export const Comment = styled.div`
   border-top: 1px solid #D9d9d9;
   margin-top: 15px;
+  padding: 0 20px;
 `
 
 export const CommentForm = styled.form`
@@ -140,4 +141,5 @@ export const CommmentSubmitButton = styled.button`
   outline: none;
   border: none;
   border-radius: 3px;
+  margin-bottom: 15px;
 `
