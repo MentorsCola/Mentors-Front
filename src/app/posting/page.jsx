@@ -41,7 +41,9 @@ export default function Posting() {
   const CheckBadwords = e => {
     const banlist = ['시발', "씨발", "ㅅ발", "ㅆ발", "ㅅㅂ", "ㅆ바", "tlqkf",
       "병신", "썅", "ㅈ까", "조까", "좃까", "졷까", "좄까", "좉까", "족까", "ㅈㄲ", "ㅗ",
-      "엿머거", "엿먹어", "엿머겅", "fuck"]
+      "엿머거", "엿먹어", "엿머겅", "fuck", "지랄", "ㅈㄹ", "ㅈ랄", "야랄", "지1랄",
+      "애미", "ㄴㄱㅁ", "느금", "@ㅐ미"
+    ]
     let found = false;
     banlist.forEach(word => {
       if (textarea.toLowerCase().includes(word)) {
