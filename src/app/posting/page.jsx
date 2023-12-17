@@ -28,6 +28,28 @@ export default function Posting() {
     setTag('')
     setTags([...tags, tag.trim()])
   }
+  const Deleting = e => {
+    if (textarea.length > 0 && confirm("정말로 지우시겠습니까?")) {
+      setTextarea('')
+    }
+  }
+  const Exiting = e => {
+    if (textarea.length > 0 && confirm("정말로 나가시겠습니까?")) {
+      setTextarea('')
+    }
+  }
+  const CheckBadwords = e => {
+    const banlist = ['시발', "씨발", "ㅅ발", "ㅆ발", "ㅅㅂ", "ㅆ바", "tlqkf",
+      "병신", "썅", "ㅈ까", "조까", "좃까", "졷까", "좄까", "좉까", "족까", "ㅈㄲ", "ㅗ",
+      "엿머거", "엿먹어", "엿머겅", "fuck"]
+    let found = false;
+    banlist.forEach(word => {
+      if (textarea.toLowerCase().includes(word)) {
+        found = true
+      }
+    })
+    return found
+  }
   const Submit = async e => {
     if (textarea.length <= 0) {
       toast.error("글을 작성해주세요.", {
@@ -42,8 +64,25 @@ export default function Posting() {
       })
       return;
     }
+    if (CheckBadwords()) {
+      toast.error("금지어가 감지되었습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"
+      })
+      return;
+    }
     //textarea.replace(/\n/g, '\n\n')
     // await axios
+    toast.success('성공적', {
+      position: "top-right",
+      autoClose: 5000
+    })
   }
   const PressKey = key => {
     let press;
@@ -134,9 +173,9 @@ export default function Posting() {
       </S.AddButtons>
       <S.TextArea placeholder='본문을 적어주세요 . . .' onChange={e => setTextarea(e.target.value)} value={textarea} />
       <S.BottomButtons>
-        <S.Exit>나가기</S.Exit>
+        <S.Exit onClick={Exiting}>나가기</S.Exit>
         <S.BorderButtons>
-          <S.BorderButton>삭제</S.BorderButton>
+          <S.BorderButton onClick={Deleting}>삭제</S.BorderButton>
           <S.BorderButton onClick={Submit}>업로드</S.BorderButton>
         </S.BorderButtons>
       </S.BottomButtons>
