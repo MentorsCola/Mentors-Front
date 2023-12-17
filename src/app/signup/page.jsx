@@ -9,7 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const [verified, setVerified] = useState(false)
-  const [nickname, setNickname] = useState('골 때리는 장난')
+  const [nickname, setNickname] = useState('이빨 빠진 사자')
   const SignupFun = async e => {
     if (verified) {
       console.log('signup')
