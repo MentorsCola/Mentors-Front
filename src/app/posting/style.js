@@ -40,6 +40,12 @@ export const PreviewBackground = styled.div`
   &::-webkit-scrollbar-thumb{
     background-color: #D9D9D9;
   }
+  p{
+    line-height: 30px;
+  }
+  h1{
+    margin: 20px 0;
+  }
   pre{
     background-color: #D9D9D9;
     padding: 10px;
