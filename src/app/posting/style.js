@@ -63,6 +63,10 @@ export const PreviewBackground = styled.div`
     color:#8ABF54;
     font-weight: bold;
   }
+  img{
+    object-fit: scale-down;
+    width: 100%;
+  }
 `
 
 export const TitleInput = styled.input`

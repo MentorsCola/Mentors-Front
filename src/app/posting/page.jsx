@@ -4,11 +4,13 @@ import * as S from './style';
 import Showdown from 'showdown';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import imageCompression from 'browser-image-compression';
 
 export default function Posting() {
   const [title, setTitle] = useState('');
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState([])
+  const [imglist, setImglist] = useState([]);
   const [textarea, setTextarea] = useState('')
   const [file, setFile] = useState('')
   const DivideTags = e => { //when pressing "space" key.
@@ -111,8 +113,32 @@ export default function Posting() {
         press = `~~취소선~~`;
         break;
       case 'img':
-        press = `\n![이미지](${file}) `;
-        console.log(file)
+        const FR = new FileReader();
+        let img
+        const go = async e => {
+          const options = {
+            maxSizeMB: 0.001, // 허용하는 최대 사이즈 지정
+            maxWidthOrHeight: 1920, // 허용하는 최대 width, height 값 지정
+            useWebWorker: true // webworker 사용 여부
+          }
+          try {
+            img = await imageCompression(file.files[0], options);
+          } catch (e) {
+            console.log(e)
+          } finally {
+            FR.readAsDataURL(img)
+            FR.onloadend = e => {
+              const blobURL = URL.createObjectURL(new Blob([file.files[0]]))
+              const p_list = [...imglist]
+              p_list[blobURL] = e.target.result
+              console.log(p_list)
+              setImglist(p_list)
+              press = `\n![](${blobURL})\n\n`;
+              setTextarea(a => a + press);
+            }
+          }
+        }
+        go();
         break;
       case 'link':
         press = `\n[제목](https://example.com) `;
@@ -123,6 +149,9 @@ export default function Posting() {
       case 'code':
         press = '\n```\n코드\n```\n';
         break;
+    }
+    if (!press || press?.length > 1000) {
+      return;
     }
     const current = document.querySelector('textarea').selectionStart;
     const text = textarea.slice(0, current) + press + textarea.slice(current);
@@ -135,6 +164,7 @@ export default function Posting() {
       return;
     }
     PressKey('img')
+    setFile(null)
   }, [file])
   return <S.Background>
     <S.PostBackground>
@@ -161,7 +191,7 @@ export default function Posting() {
         </S.AddButton>
         <S.AddButton>
           <label>
-            <input type='file' value={file} onChange={e => setFile(e.target.value)} style={{ display: 'none' }} />
+            <input type='file' onChange={e => setFile(e.target)} style={{ display: 'none' }} />
             <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.5 20.75V3.25C22.5 1.875 21.375 0.75 20 0.75H2.5C1.125 0.75 0 1.875 0 3.25V20.75C0 22.125 1.125 23.25 2.5 23.25H20C21.375 23.25 22.5 22.125 22.5 20.75ZM6.875 13.875L10 17.6375L14.375 12L20 19.5H2.5L6.875 13.875Z" fill="#858E96" />
             </svg>
