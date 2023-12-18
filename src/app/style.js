@@ -10,10 +10,10 @@ export const HomeWrapper = styled.div`
 
 export const ContentsWrapper = styled.div`
   width: 1100px;
+  height: fit-content;
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: aliceblue;
   gap: 20px;
 `;
 

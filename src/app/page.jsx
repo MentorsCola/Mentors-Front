@@ -2,11 +2,13 @@
 import * as S from "./style";
 import { useState } from "react";
 import PostCard from "../components/PostCard";
+import Navbar from "../components/Navbar";
 export default function Home() {
   const [pages, setPages] = useState("인기 글");
-
+  const [dataList, setDataList] = useState({});
   return (
     <S.HomeWrapper>
+      <Navbar />
       <S.ContentsWrapper>
         <S.TopWrapper>
           <S.MenuBarList>
