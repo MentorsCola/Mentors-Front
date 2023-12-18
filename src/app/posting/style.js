@@ -41,7 +41,8 @@ export const PreviewBackground = styled.div`
     background-color: #D9D9D9;
   }
   p{
-    line-height: 30px;
+    word-wrap:break-word;
+    margin: 5px 0;
   }
   h1{
     margin: 20px 0;
