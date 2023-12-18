@@ -5,11 +5,16 @@ import Link from 'next/link'
 import axios from 'axios'
 
 export default function Login() {
-  const url = ''
+  const url = 'http://localhost:8000'
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const LoginFun = async e => {
-    // await axios.post(`${url}/auth/login/`)
+    // await axios.post(`${url}/user/register/`, { email: email, password: pw })
+    //   .then(e => {
+    //     console.log(e.data)
+    //   }).catch(e => {
+    //     console.log(e)
+    //   })
   }
   return <S.Back>
     <S.Main onSubmit={e => {
