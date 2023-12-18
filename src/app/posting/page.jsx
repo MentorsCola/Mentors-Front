@@ -83,6 +83,12 @@ export default function Posting() {
     }
     //textarea.replace(/\n/g, '\n\n')
     // await axios
+    let sendText = textarea;
+    imglist.forEach(({ id, text }) => {
+      const letter = new RegExp(id, "gi")
+      sendText = sendText.replace(letter, text)
+    })
+    console.log(sendText)
     toast.success('성공적', {
       position: "top-right",
       autoClose: 5000
@@ -129,10 +135,11 @@ export default function Posting() {
             FR.readAsDataURL(img)
             FR.onloadend = e => {
               const blobURL = URL.createObjectURL(new Blob([file.files[0]]))
-              const p_list = [...imglist]
-              p_list[blobURL] = e.target.result
-              console.log(p_list)
-              setImglist(p_list)
+              let p_list = {
+                id: blobURL,
+                text: e.target.result
+              }
+              setImglist(a => [...a, p_list])
               press = `\n![](${blobURL})\n\n`;
               setTextarea(a => a + press);
             }
