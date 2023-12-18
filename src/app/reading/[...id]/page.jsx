@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import * as S from './style';
 import Showdown from 'showdown';
 
-export default function Reading() {
+export default function Reading(props) {
   const [title, setTitle] = useState('')
   const [tags, setTags] = useState([])
   const [author, setAuthor] = useState('')
@@ -50,6 +50,7 @@ Logging은 많은 시스템 컴포넌트를 가로지르며 수행되는 활동(
       date: "2023년 12월 4일",
       comment: '정말 유용한 길이네요~'
     }])
+    console.log(props.params.id[0])
   }, [])
   return <S.Background>
     <S.Main>
