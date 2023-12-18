@@ -16,7 +16,8 @@ export const Background = styled.div`
 `
 
 export const Main = styled.div`
-  margin: 100px 0;
+  margin-top: 50px;
+  margin-bottom: 150px;
   padding: 40px;
   min-width: 350px;
   padding-top: 50px;
