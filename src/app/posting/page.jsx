@@ -230,29 +230,32 @@ export default function Posting() {
             <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.5 20.75V3.25C22.5 1.875 21.375 0.75 20 0.75H2.5C1.125 0.75 0 1.875 0 3.25V20.75C0 22.125 1.125 23.25 2.5 23.25H20C21.375 23.25 22.5 22.125 22.5 20.75ZM6.875 13.875L10 17.6375L14.375 12L20 19.5H2.5L6.875 13.875Z" fill="#858E96" />
             </svg>
-          </S.AddButton>
-        </S.AddButtons>
-        <S.TextArea
-          placeholder="본문을 적어주세요 . . ."
-          onChange={(e) => setTextarea(e.target.value)}
-          value={textarea}
-        />
-        <S.BottomButtons>
-          <S.Exit onClick={Exiting}>나가기</S.Exit>
-          <S.BorderButtons>
-            <S.BorderButton onClick={Deleting}>삭제</S.BorderButton>
-            <S.BorderButton onClick={Submit}>업로드</S.BorderButton>
-          </S.BorderButtons>
-        </S.BottomButtons>
-      </S.PostBackground>
-      <S.PreviewBackground
-        dangerouslySetInnerHTML={{
-          __html: new Showdown.Converter({ strikethrough: true }).makeHtml(
-            textarea.replace(/\n/g, "\n\n")
-          ),
-        }}
-      ></S.PreviewBackground>
-      <ToastContainer />
-    </S.Background>
-  );
+          </label>
+        </S.AddButton>
+        <S.AddButton onClick={e => PressKey('code')}>
+          {'< >'}
+        </S.AddButton>
+      </S.AddButtons>
+      <S.TextArea
+        placeholder="본문을 적어주세요 . . ."
+        onChange={(e) => setTextarea(e.target.value)}
+        value={textarea}
+      />
+      <S.BottomButtons>
+        <S.Exit onClick={Exiting}>나가기</S.Exit>
+        <S.BorderButtons>
+          <S.BorderButton onClick={Deleting}>삭제</S.BorderButton>
+          <S.BorderButton onClick={Submit}>업로드</S.BorderButton>
+        </S.BorderButtons>
+      </S.BottomButtons>
+    </S.PostBackground>
+    <S.PreviewBackground
+      dangerouslySetInnerHTML={{
+        __html: new Showdown.Converter({ strikethrough: true }).makeHtml(
+          textarea.replace(/\n/g, "\n\n")
+        ),
+      }}
+    ></S.PreviewBackground>
+    <ToastContainer />
+  </S.Background>;
 }
