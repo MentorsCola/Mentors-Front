@@ -48,18 +48,21 @@ export default function Home() {
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />
           <PostCard
             title={"프론트엔드 공통의 저주"}
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />
           <PostCard
             title={"프론트엔드 공통의 저주"}
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />
           <PostCard
             title={"프론트엔드 공통의 저주"}
@@ -72,24 +75,28 @@ export default function Home() {
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />{" "}
           <PostCard
             title={"프론트엔드 공통의 저주"}
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />{" "}
           <PostCard
             title={"프론트엔드 공통의 저주"}
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />{" "}
           <PostCard
             title={"프론트엔드 공통의 저주"}
             date={"2023년 12월 10일"}
             username={"코가 없는 코뿔소"}
             likes={21}
+            id={10}
           />
         </S.PostListWrapper>
       </S.ContentsWrapper>
