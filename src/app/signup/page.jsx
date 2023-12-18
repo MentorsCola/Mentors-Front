@@ -20,12 +20,6 @@ export default function Login() {
         console.log(e)
       })
   }
-  const GenerateNickName = e => {
-    if (!verified) {
-      return;
-    }
-    console.log('generated nickname')
-  }
   const GetNicknames = async e => {
     await axios.get(`${url}/nickname/view`)
       .then(e => {
