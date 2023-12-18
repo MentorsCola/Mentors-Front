@@ -12,7 +12,6 @@ export const MypageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 900px;
-  background-color: aliceblue;
   gap: 20px;
   align-items: center;
 `;
@@ -21,7 +20,7 @@ export const ProfileWrapper = styled.div`
   display: flex;
   gap: 15px;
   align-items: center;
-  width: 90%;
+  width: 88%;
 `;
 
 export const Line = styled.div`
@@ -72,22 +71,52 @@ export const PostWrapper = styled.div`
   height: 390px;
   border-radius: 10px;
   padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   .subTitle {
-    margin-left: 10%;
+    height: 30px;
+    margin-right: 65%;
     font-size: 20px;
     display: flex;
     align-items: center;
     gap: 14px;
     font-weight: 600;
   }
+
+  .NullImage {
+    margin-top: 20px;
+  }
+  button {
+    color: #26400d;
+    border: 2px solid #0000005c;
+    font-size: 12px;
+    padding: 8px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  .p_1 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 10px;
+  }
 `;
 export const PostList = styled.div`
+  width: 100%;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   height: 300px;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 5px;
+  }
 `;
 
 export const postItem = styled.div`
