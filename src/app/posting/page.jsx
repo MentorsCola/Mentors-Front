@@ -1,8 +1,8 @@
-"use client"
-import { useEffect, useState } from 'react';
-import * as S from './style';
-import Showdown from 'showdown';
-import { ToastContainer, toast } from 'react-toastify';
+"use client";
+import { useEffect, useState } from "react";
+import * as S from "./style";
+import Showdown from "showdown";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import imageCompression from 'browser-image-compression';
 
@@ -20,41 +20,69 @@ export default function Posting() {
       setTags(list)
       return;
     }
-    if (e.code !== 'Space' && e.code !== 'Comma' && e.code !== 'Enter') {
+    if (e.code !== "Space" && e.code !== "Comma" && e.code !== "Enter") {
       return;
     }
     if (tag.trim().length < 2) {
-      setTag('')
-      return
+      setTag("");
+      return;
     }
-    setTag('')
-    setTags([...tags, tag.trim()])
-  }
-  const Deleting = e => {
+    setTag("");
+    setTags([...tags, tag.trim()]);
+  };
+  const Deleting = (e) => {
     if (textarea.length > 0 && confirm("정말로 지우시겠습니까?")) {
-      setTextarea('')
+      setTextarea("");
     }
-  }
-  const Exiting = e => {
+  };
+  const Exiting = (e) => {
     if (textarea.length > 0 && confirm("정말로 나가시겠습니까?")) {
-      setTextarea('')
+      setTextarea("");
     }
-  }
-  const CheckBadwords = e => {
-    const banlist = ['시발', "씨발", "ㅅ발", "ㅆ발", "ㅅㅂ", "ㅆ바", "tlqkf",
-      "병신", "썅", "ㅈ까", "조까", "좃까", "졷까", "좄까", "좉까", "족까", "ㅈㄲ", "ㅗ",
-      "엿머거", "엿먹어", "엿머겅", "fuck", "지랄", "ㅈㄹ", "ㅈ랄", "야랄", "지1랄",
-      "애미", "ㄴㄱㅁ", "느금", "@ㅐ미"
-    ]
+  };
+  const CheckBadwords = (e) => {
+    const banlist = [
+      "시발",
+      "씨발",
+      "ㅅ발",
+      "ㅆ발",
+      "ㅅㅂ",
+      "ㅆ바",
+      "tlqkf",
+      "병신",
+      "썅",
+      "ㅈ까",
+      "조까",
+      "좃까",
+      "졷까",
+      "좄까",
+      "좉까",
+      "족까",
+      "ㅈㄲ",
+      "ㅗ",
+      "엿머거",
+      "엿먹어",
+      "엿머겅",
+      "fuck",
+      "지랄",
+      "ㅈㄹ",
+      "ㅈ랄",
+      "야랄",
+      "지1랄",
+      "애미",
+      "ㄴㄱㅁ",
+      "느금",
+      "@ㅐ미",
+    ];
     let found = false;
-    banlist.forEach(word => {
+    banlist.forEach((word) => {
       if (textarea.toLowerCase().includes(word)) {
-        found = true
+        found = true;
       }
-    })
-    return found
-  }
-  const Submit = async e => {
+    });
+    return found;
+  };
+  const Submit = async (e) => {
     if (textarea.length <= 0) {
       toast.error("글을 작성해주세요.", {
         position: "top-right",
@@ -64,8 +92,8 @@ export default function Posting() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light"
-      })
+        theme: "light",
+      });
       return;
     }
     if (CheckBadwords()) {
@@ -77,8 +105,8 @@ export default function Posting() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light"
-      })
+        theme: "light",
+      });
       return;
     }
     //textarea.replace(/\n/g, '\n\n')
@@ -91,31 +119,31 @@ export default function Posting() {
     console.log(sendText)
     toast.success('성공적', {
       position: "top-right",
-      autoClose: 5000
-    })
-  }
-  const PressKey = key => {
+      autoClose: 5000,
+    });
+  };
+  const PressKey = (key) => {
     let press;
     switch (key) {
-      case 'h1':
-        press = '\n# 제목1';
+      case "h1":
+        press = "\n# 제목1";
         break;
-      case 'h2':
-        press = '\n## 제목2';
+      case "h2":
+        press = "\n## 제목2";
         break;
-      case 'h3':
-        press = '\n### 제목3';
+      case "h3":
+        press = "\n### 제목3";
         break;
-      case 'h4':
-        press = '\n#### 제목4';
+      case "h4":
+        press = "\n#### 제목4";
         break;
-      case 'bold':
-        press = '**굵은**'
+      case "bold":
+        press = "**굵은**";
         break;
-      case 'italic':
-        press = '*이탤릭*';
+      case "italic":
+        press = "*이탤릭*";
         break;
-      case 'cancel':
+      case "cancel":
         press = `~~취소선~~`;
         break;
       case 'img':
@@ -147,14 +175,14 @@ export default function Posting() {
         }
         go();
         break;
-      case 'link':
+      case "link":
         press = `\n[제목](https://example.com) `;
         break;
-      case 'quote':
+      case "quote":
         press = `\n>인용문구`;
         break;
-      case 'code':
-        press = '\n```\n코드\n```\n';
+      case "code":
+        press = "\n```\n코드\n```\n";
         break;
     }
     if (!press || press?.length > 1000) {
@@ -202,25 +230,29 @@ export default function Posting() {
             <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.5 20.75V3.25C22.5 1.875 21.375 0.75 20 0.75H2.5C1.125 0.75 0 1.875 0 3.25V20.75C0 22.125 1.125 23.25 2.5 23.25H20C21.375 23.25 22.5 22.125 22.5 20.75ZM6.875 13.875L10 17.6375L14.375 12L20 19.5H2.5L6.875 13.875Z" fill="#858E96" />
             </svg>
-          </label>
-        </S.AddButton>
-        <S.AddButton onClick={e => PressKey('code')}>
-          <svg width="31" height="12" viewBox="0 0 31 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.345312 7.70312V4.91016L10.2867 0.691406V3.77734L3.76328 6.23828V6.375L10.2867 8.83594V11.9219L0.345312 7.70312ZM30.6742 7.70312L20.7328 11.9219V8.83594L27.2367 6.375V6.23828L20.7328 3.77734V0.691406L30.6742 4.91016V7.70312Z" fill="#858E96" />
-          </svg>
-        </S.AddButton>
-      </S.AddButtons>
-      <S.TextArea placeholder='본문을 적어주세요 . . .' onChange={e => setTextarea(e.target.value)} value={textarea} />
-      <S.BottomButtons>
-        <S.Exit onClick={Exiting}>나가기</S.Exit>
-        <S.BorderButtons>
-          <S.BorderButton onClick={Deleting}>삭제</S.BorderButton>
-          <S.BorderButton onClick={Submit}>업로드</S.BorderButton>
-        </S.BorderButtons>
-      </S.BottomButtons>
-    </S.PostBackground>
-    <S.PreviewBackground dangerouslySetInnerHTML={{ __html: new Showdown.Converter({ strikethrough: true }).makeHtml(textarea.replace(/\n/g, '\n\n')) }}>
-    </S.PreviewBackground>
-    <ToastContainer />
-  </S.Background>
-} 
+          </S.AddButton>
+        </S.AddButtons>
+        <S.TextArea
+          placeholder="본문을 적어주세요 . . ."
+          onChange={(e) => setTextarea(e.target.value)}
+          value={textarea}
+        />
+        <S.BottomButtons>
+          <S.Exit onClick={Exiting}>나가기</S.Exit>
+          <S.BorderButtons>
+            <S.BorderButton onClick={Deleting}>삭제</S.BorderButton>
+            <S.BorderButton onClick={Submit}>업로드</S.BorderButton>
+          </S.BorderButtons>
+        </S.BottomButtons>
+      </S.PostBackground>
+      <S.PreviewBackground
+        dangerouslySetInnerHTML={{
+          __html: new Showdown.Converter({ strikethrough: true }).makeHtml(
+            textarea.replace(/\n/g, "\n\n")
+          ),
+        }}
+      ></S.PreviewBackground>
+      <ToastContainer />
+    </S.Background>
+  );
+}

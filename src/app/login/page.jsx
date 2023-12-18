@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from 'react-toastify'
 
 export default function Login() {
-  const url = 'http://localhost:8000'
+  const url = process.env.NEXT_PUBLIC_URL;
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const LoginFun = async e => {
