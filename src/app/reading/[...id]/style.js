@@ -57,7 +57,7 @@ export const Content = styled.div`
   }
   img{
     object-fit: scale-down;
-    width: 100%;
+    max-width: 100%;
   }
   pre{
     background-color: #D9D9D9;
