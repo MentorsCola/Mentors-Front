@@ -54,6 +54,7 @@ export const Button = styled.button`
   border: none;
   margin-top: 50px;
   border-radius: 2px;
+  color: #fff;
   &:hover {
     background-color: darken(#8abf54, 10%);
   }
