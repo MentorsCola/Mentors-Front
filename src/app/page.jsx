@@ -3,11 +3,11 @@ import * as S from "./style";
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import Navbar from "../components/Navbar";
-import axios from "axios";
 import { API } from "../api";
 export default function Home() {
   const [pages, setPages] = useState("인기 글");
   const [dataList, setDataList] = useState({ boards: [] });
+  const [nameList, setNameList] = useState();
   const fetchdata = async () => {
     const url = pages === "인기 글" ? "" : `/board/boards/`;
     await API.get(url)
@@ -19,6 +19,22 @@ export default function Home() {
       });
   };
 
+  const fetchName = async () => {
+    await API.get("/nickname/view/")
+      .then((e) => {
+        setNameList(e.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const findName = (id) => {
+    return nameList.filter((i) => i.id == id)[0].name;
+  };
+  useEffect(() => {
+    fetchName();
+  }, []);
   useEffect(() => {
     fetchdata();
   }, [pages]);
@@ -29,7 +45,7 @@ export default function Home() {
       <S.ContentsWrapper>
         <S.TopWrapper>
           <S.MenuBarList>
-            {["인기 글", "최근 계시글"].map((title) => (
+            {["인기 글", "최근 게시글"].map((title) => (
               <S.MenuBarItem
                 Display={pages === title}
                 onClick={() => setPages(title)}
@@ -64,7 +80,7 @@ export default function Home() {
             <PostCard
               title={i.title}
               date={i.dt_created}
-              username={i.nickname_author}
+              username={findName(i.nickname_author)}
               likes={21}
               id={i.id}
               key={i.id}
