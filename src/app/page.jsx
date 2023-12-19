@@ -1,18 +1,51 @@
 "use client";
 import * as S from "./style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import Navbar from "../components/Navbar";
+import { API } from "../api";
 export default function Home() {
   const [pages, setPages] = useState("인기 글");
-  const [dataList, setDataList] = useState({});
+  const [dataList, setDataList] = useState({ boards: [] });
+  const [nameList, setNameList] = useState();
+  const fetchdata = async () => {
+    const url = pages === "인기 글" ? "" : `/board/boards/`;
+    await API.get(url)
+      .then((e) => {
+        setDataList(e.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const fetchName = async () => {
+    await API.get("/nickname/view/")
+      .then((e) => {
+        setNameList(e.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const findName = (id) => {
+    return nameList.filter((i) => i.id == id)[0].name;
+  };
+  useEffect(() => {
+    fetchName();
+  }, []);
+  useEffect(() => {
+    fetchdata();
+  }, [pages]);
+
   return (
     <S.HomeWrapper>
       <Navbar />
       <S.ContentsWrapper>
         <S.TopWrapper>
           <S.MenuBarList>
-            {["인기 글", "최근 계시글"].map((title) => (
+            {["인기 글", "최근 게시글"].map((title) => (
               <S.MenuBarItem
                 Display={pages === title}
                 onClick={() => setPages(title)}
@@ -43,61 +76,16 @@ export default function Home() {
           </S.SearchBar>
         </S.TopWrapper>
         <S.PostListWrapper>
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-          />{" "}
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />{" "}
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />{" "}
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />{" "}
-          <PostCard
-            title={"프론트엔드 공통의 저주"}
-            date={"2023년 12월 10일"}
-            username={"코가 없는 코뿔소"}
-            likes={21}
-            id={10}
-          />
+          {dataList.boards.map((i) => (
+            <PostCard
+              title={i.title}
+              date={i.dt_created}
+              username={findName(i.nickname_author)}
+              likes={21}
+              id={i.id}
+              key={i.id}
+            />
+          ))}
         </S.PostListWrapper>
       </S.ContentsWrapper>
     </S.HomeWrapper>
