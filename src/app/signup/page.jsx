@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import * as S from "./style";
 import Link from "next/link";
 import axios from "axios";
+import { API } from "../../api";
 
 export default function Login() {
-  const url = "http://localhost:8000";
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [verified, setVerified] = useState(false);
@@ -13,8 +13,7 @@ export default function Login() {
   const [index, setIndex] = useState(0);
   const SignupFun = async (e) => {
     setVerified(true);
-    await axios
-      .post(`${url}/user/register/`, { email: email, password: pw })
+    await API.post(`/user/register/`, { email: email, password: pw })
       .then((e) => {
         console.log(e.data);
       })
@@ -23,8 +22,7 @@ export default function Login() {
       });
   };
   const GetNicknames = async (e) => {
-    await axios
-      .get(`${url}/nickname/view`)
+    await API.get(`/nickname/view`)
       .then((e) => {
         setNickname(e.data);
       })
