@@ -36,6 +36,9 @@ export const LoginList = styled.div`
   display: flex;
   gap: 5px;
   align-items: center;
+  p{
+    cursor: pointer;
+  }
 `;
 
 export const ListLine = styled.div`

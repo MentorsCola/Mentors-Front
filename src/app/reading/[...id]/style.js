@@ -55,6 +55,10 @@ export const Content = styled.div`
   h1{
     margin: 20px 0;
   }
+  img{
+    object-fit: scale-down;
+    max-width: 100%;
+  }
   pre{
     background-color: #D9D9D9;
     padding: 10px;
@@ -134,7 +138,7 @@ export const CommentInput = styled.textarea`
   color: black;
 `
 
-export const CommmentSubmitButton = styled.button`
+export const CommentSubmitButton = styled.button`
   width: 130px;
   margin-top: 10px;
   height: 30px;
@@ -143,4 +147,5 @@ export const CommmentSubmitButton = styled.button`
   border: none;
   border-radius: 3px;
   margin-bottom: 15px;
+  cursor: pointer;
 `

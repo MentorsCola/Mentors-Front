@@ -5,6 +5,7 @@ import Showdown from "showdown";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import imageCompression from 'browser-image-compression';
+import axios from "axios";
 
 export default function Posting() {
   const [title, setTitle] = useState('');
@@ -116,11 +117,25 @@ export default function Posting() {
       const letter = new RegExp(id, "gi")
       sendText = sendText.replace(letter, text)
     })
-    console.log(sendText)
-    toast.success('성공적', {
-      position: "top-right",
-      autoClose: 5000,
-    });
+    await axios.post(`${process.env.NEXT_PUBLIC_URL}/board/boards/post/`, {
+      title: title,
+      content: JSON.stringify({
+        tags: tags,
+        content: sendText
+      })
+    }, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
+      .then(e => {
+        console.log(e.data)
+        toast.success('성공적', {
+          position: "top-right",
+          autoClose: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = `/reading/${e.data.id}`
+        }, 1000);
+      }).catch(e => {
+        console.log(e)
+      })
   };
   const PressKey = (key) => {
     let press;
@@ -151,7 +166,7 @@ export default function Posting() {
         let img
         const go = async e => {
           const options = {
-            maxSizeMB: 0.001, // 허용하는 최대 사이즈 지정
+            maxSizeMB: 1, // 허용하는 최대 사이즈 지정
             maxWidthOrHeight: 1920, // 허용하는 최대 width, height 값 지정
             useWebWorker: true // webworker 사용 여부
           }

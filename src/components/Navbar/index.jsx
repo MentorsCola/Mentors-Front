@@ -1,7 +1,13 @@
+import { useEffect, useState } from "react";
 import * as S from "./style";
 import Link from "next/link";
 export default function Navbar() {
-  const login = true;
+  const [logined, setLogined] = useState(false);
+  useEffect(e => {
+    if (localStorage.getItem('user_email')) {
+      setLogined(localStorage.getItem('user_email').split('@')[0])
+    }
+  }, []);
 
   return (
     <S.NavbarWrapper>
@@ -40,20 +46,26 @@ export default function Navbar() {
         <S.MenuList>
           <Link href={"/"}>홈</Link>
           <Link href={"/posting"}>글쓰기</Link>
-          <Link href={"/"}>마이페이지</Link>
+          <Link href={"/mypage"}>마이페이지</Link>
         </S.MenuList>
         <S.LoginList>
-          {login ? (
+          {!logined ? (
             <>
               <Link href={"/login"}>로그인</Link>
               <S.ListLine />
               <Link href={"/signup"}>회원가입</Link>
             </>
-          ) : (
-            <p onClick={() => {}}>로그아웃</p>
-          )}
+          ) : (<>
+            {logined}
+            <p onClick={() => {
+              if (confirm('로그아웃 하시겠습니까?')) {
+                localStorage.clear();
+                window.location.href = '/'
+              }
+            }}>로그아웃</p>
+          </>)}
         </S.LoginList>
       </S.ContentWrapper>
-    </S.NavbarWrapper>
+    </S.NavbarWrapper >
   );
 }
