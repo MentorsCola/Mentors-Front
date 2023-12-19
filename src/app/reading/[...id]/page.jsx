@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import * as S from './style';
 import Showdown from 'showdown';
 import Navbar from '@/components/Navbar';
+import axios from 'axios';
 
 export default function Reading(props) {
   const [title, setTitle] = useState('')
   const [tags, setTags] = useState([])
   const [author, setAuthor] = useState('')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(new Date())
   const [content, setContent] = useState('')
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState('');
@@ -16,42 +17,24 @@ export default function Reading(props) {
   const Submit = e => {
     e.preventDefault();
   }
+  const GetContent = async e => {
+    const id = props.params.id[0];
+    await axios.get(`${process.env.NEXT_PUBLIC_URL}/board/boards/get/${id}/`, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
+      .then(e => {
+        console.log(e.data)
+        const d = e.data;
+        setTitle(d.title)
+        setAuthor(d.nickname_author)
+        setDate(new Date(d.dt_modified))
+        setContent(d.content)
+        setComments(d.comments)
+        setTags(['프론트엔드', '저주', '프론트엔드의저주'])
+      }).catch(e => {
+        console.log(e)
+      })
+  }
   useEffect(e => {
-    setTitle('프론트엔드 정답의 저주')
-    setTags(['프론트엔드', '저주', '프론트엔드의저주'])
-    setAuthor('코가 없는 코뿔소')
-    setDate('2023년 12월 3일')
-    setContent('# 프론트엔드 정답의 저주란?\n\n\
-\
-관점 지향 프로그래밍으로 더 잘 알려진 관심사의 관점 분리는 애플리케이션의 핵심 관심사에서 나온 애플리케이션의\
-횡단 관심사(cross-cutting concerns)를 분리하는 프로세스를 뜻한다. 횡단 관심사 혹은 관점은 애플리케이션 내에 여러 경계를 가로지르며 심어지는 관심사를 의미한다.\n\n\
-\
-Logging은 많은 시스템 컴포넌트를 가로지르며 수행되는 활동(횡단 관심사)의 한 예시라고 볼 수 있겠다.\
-횡단 관심사는 애플리케이션 도처에 널리 퍼져서 사용되기 때문에 유지보수가 어려워질 수 있다. 핵심 관심사와 섞이게 되면 복잡도가 증가하고, \
-애플리케이션을 더 유지 보수하기 어렵게 만든다. 그런 관심사들을 분리함으로써, 핵심 관심사들과 횡단 관심사들 모두 더 관리하기 쉬워진다.\n\n\
-\
-관점 분리는 횡단 관심사들의 전처리(pre-processing), 컴파일 타임, 런타임의 결합에 의존한다는 점에서 다른 분리 기법과 차이가 있다.\n\n\
-두개의 관심사를 다시 결합시키는 프로세스를 weaving이라고 한다.\n\n\
-다양한 전략을 사용함으로써, 횡단 관심사는 애플리케이션 내에서 런타임 결합을 위해 분리 될 수 있고, 다시 weave 될 수도 있다.\n\n\
-관점 분리 도구들은 여러 프로그래밍 언어에서 사용 가능하다.\n\n\
-관점 분리를 쉽게 하기 위해 사용 할 수 있는 툴 리스트 등의 정보를 보려면, Aspect-Oriented Programming 를 참고해라.\n\n\
-승톨\n\n\
-![이미지](_)\
-')
-    setComments([{
-      author: '살빠진 돼지',
-      date: "2023년 12월 4일",
-      comment: '정말 유용한 길이네요~'
-    }, {
-      author: '살빠진 돼지',
-      date: "2023년 12월 4일",
-      comment: '정말 유용한 길이네요~'
-    }, {
-      author: '살빠진 돼지',
-      date: "2023년 12월 4일",
-      comment: '정말 유용한 길이네요~'
-    }])
-    console.log(props.params.id[0])
+    GetContent()
   }, [])
   return <>
     <Navbar />
@@ -65,7 +48,7 @@ Logging은 많은 시스템 컴포넌트를 가로지르며 수행되는 활동(
         </S.Tags>
         <S.AuthorDiv>
           <S.Author>{author}</S.Author>
-          <S.Date>{date}</S.Date>
+          <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
         </S.AuthorDiv>
         <S.Content dangerouslySetInnerHTML={{ __html: new Showdown.Converter({ strikethrough: true }).makeHtml(content) }} />
         <S.FuncButtons>
@@ -97,13 +80,10 @@ Logging은 많은 시스템 컴포넌트를 가로지르며 수행되는 활동(
           {comments?.map((i, n) => <S.Comment>
             <S.AuthorDiv>
               <S.Author>
-                {i.author}
+                {i.id}
               </S.Author>
-              <S.Date>
-                {i.date}
-              </S.Date>
             </S.AuthorDiv>
-            {i.comment}
+            {i.content}
           </S.Comment>)}
         </S.Comments>
       </S.Main>
