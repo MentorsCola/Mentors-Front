@@ -2,12 +2,13 @@ import Link from "next/link";
 import * as S from "./style";
 
 export default function PostCard({ id, title, date, username, likes }) {
+  const postDate = date.slice(0, 9).split("-");
   return (
     <Link href={`/reading/${id}`}>
       <S.PostCardWrapper>
         <S.TopWrapper>
           <S.Title>{title}</S.Title>
-          <S.Date>{date}</S.Date>
+          <S.Date>{`${postDate[0]}년 ${postDate[1]}월 ${postDate[2]}일`}</S.Date>
         </S.TopWrapper>
         <S.LowerWrapper>
           <S.Username>{username}</S.Username>
