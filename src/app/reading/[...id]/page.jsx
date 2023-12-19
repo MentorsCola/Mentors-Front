@@ -106,9 +106,16 @@ export default function Reading(props) {
         setTitle(d.title)
         setAuthor(d.nickname_author)
         setDate(new Date(d.dt_modified))
-        setContent(d.content)
         setComments(d.comments)
-        setTags(['프론트엔드', '저주', '프론트엔드의저주'])
+        try {
+          const content = JSON.parse(d.content)
+          console.log(content)
+          setTags(content.tags)
+          setContent(content.content)
+        } catch {
+          setContent(d.content)
+          setTags(['프론트엔드', '저주', '프론트엔드의저주'])
+        }
       }).catch(e => {
         console.log(e)
       })
@@ -125,10 +132,10 @@ export default function Reading(props) {
           {title}
         </S.Title>
         <S.Tags>
-          {tags.map((i, n) => <S.Tag key={n}>#{i}</S.Tag>)}
+          {tags?.map((i, n) => <S.Tag key={n}>#{i}</S.Tag>)}
         </S.Tags>
         <S.AuthorDiv>
-          <S.Author>{author}</S.Author>
+          <S.Author>{nicknames[author]}</S.Author>
           <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
         </S.AuthorDiv>
         <S.Content dangerouslySetInnerHTML={{ __html: new Showdown.Converter({ strikethrough: true }).makeHtml(content) }} />

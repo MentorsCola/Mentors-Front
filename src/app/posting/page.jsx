@@ -5,6 +5,7 @@ import Showdown from "showdown";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import imageCompression from 'browser-image-compression';
+import axios from "axios";
 
 export default function Posting() {
   const [title, setTitle] = useState('');
@@ -116,11 +117,22 @@ export default function Posting() {
       const letter = new RegExp(id, "gi")
       sendText = sendText.replace(letter, text)
     })
-    console.log(sendText)
-    toast.success('성공적', {
-      position: "top-right",
-      autoClose: 5000,
-    });
+    await axios.post(`${process.env.NEXT_PUBLIC_URL}/board/boards/post/`, {
+      title: title,
+      content: JSON.stringify({
+        tags: tags,
+        content: sendText
+      })
+    }, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
+      .then(e => {
+        console.log(sendText)
+        toast.success('성공적', {
+          position: "top-right",
+          autoClose: 5000,
+        });
+      }).catch(e => {
+        console.log(e)
+      })
   };
   const PressKey = (key) => {
     let press;
