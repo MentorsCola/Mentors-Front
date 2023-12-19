@@ -14,6 +14,7 @@ export default function Reading(props) {
   const [date, setDate] = useState(new Date())
   const [content, setContent] = useState('')
   const [comments, setComments] = useState([]);
+  const [nicknames, setNicknames] = useState([])
   const [commentInput, setCommentInput] = useState('');
   const [liked, setLiked] = useState(false);
   const id = props.params.id[0];
@@ -59,6 +60,20 @@ export default function Reading(props) {
     });
     return found;
   };
+
+  const GetNicknames = async e => {
+    await axios.get(`${process.env.NEXT_PUBLIC_URL}/nickname/view`)
+      .then(e => {
+        console.log(e.data)
+        let list = []
+        e.data.forEach(e => {
+          list[e.id] = e.name
+        })
+        setNicknames(list);
+      }).catch(e => {
+        console.log(e)
+      })
+  }
   const Submit = async e => {
     e.preventDefault();
     if (CheckBadwords()) {
@@ -100,6 +115,7 @@ export default function Reading(props) {
   }
   useEffect(e => {
     GetContent()
+    GetNicknames()
   }, [])
   return <>
     <Navbar />
@@ -145,7 +161,7 @@ export default function Reading(props) {
           {comments?.map((i, n) => <S.Comment>
             <S.AuthorDiv>
               <S.Author>
-                {i.id}
+                {nicknames[i.nickname]}
               </S.Author>
             </S.AuthorDiv>
             {i.content}
