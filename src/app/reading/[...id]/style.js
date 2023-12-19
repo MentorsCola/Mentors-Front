@@ -138,7 +138,7 @@ export const CommentInput = styled.textarea`
   color: black;
 `
 
-export const CommmentSubmitButton = styled.button`
+export const CommentSubmitButton = styled.button`
   width: 130px;
   margin-top: 10px;
   height: 30px;
@@ -147,4 +147,5 @@ export const CommmentSubmitButton = styled.button`
   border: none;
   border-radius: 3px;
   margin-bottom: 15px;
+  cursor: pointer;
 `

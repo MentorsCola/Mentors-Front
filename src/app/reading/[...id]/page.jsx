@@ -4,6 +4,8 @@ import * as S from './style';
 import Showdown from 'showdown';
 import Navbar from '@/components/Navbar';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Reading(props) {
   const [title, setTitle] = useState('')
@@ -14,12 +16,75 @@ export default function Reading(props) {
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState('');
   const [liked, setLiked] = useState(false);
-  const Submit = e => {
+  const id = props.params.id[0];
+  const CheckBadwords = (e) => {
+    const banlist = [
+      "시발",
+      "씨발",
+      "ㅅ발",
+      "ㅆ발",
+      "ㅅㅂ",
+      "ㅆ바",
+      "tlqkf",
+      "병신",
+      "썅",
+      "ㅈ까",
+      "조까",
+      "좃까",
+      "졷까",
+      "좄까",
+      "좉까",
+      "족까",
+      "ㅈㄲ",
+      "ㅗ",
+      "엿머거",
+      "엿먹어",
+      "엿머겅",
+      "fuck",
+      "지랄",
+      "ㅈㄹ",
+      "ㅈ랄",
+      "야랄",
+      "지1랄",
+      "애미",
+      "ㄴㄱㅁ",
+      "느금",
+      "@ㅐ미",
+    ];
+    let found = false;
+    banlist.forEach((word) => {
+      if (commentInput.toLowerCase().includes(word)) {
+        found = true;
+      }
+    });
+    return found;
+  };
+  const Submit = async e => {
     e.preventDefault();
+    if (CheckBadwords()) {
+      toast.error("금지어가 감지되었습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    await axios.post(`${process.env.NEXT_PUBLIC_URL}/comment/comments/${id}/`, { content: commentInput }, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
+      .then(e => {
+        console.log(e.data)
+        GetContent()
+      }).catch(e => {
+        console.log(e)
+      })
   }
   const GetContent = async e => {
-    const id = props.params.id[0];
-    await axios.get(`${process.env.NEXT_PUBLIC_URL}/board/boards/get/${id}/`, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
+    await axios.get(`${process.env.NEXT_PUBLIC_URL}/board/boards/get/${id}/`,
+      { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
       .then(e => {
         console.log(e.data)
         const d = e.data;
@@ -75,7 +140,7 @@ export default function Reading(props) {
           </S.countComment>
           <S.CommentForm onSubmit={Submit}>
             <S.CommentInput placeholder='댓글을 작성하세요' value={commentInput} onChange={e => setCommentInput(e.target.value)} />
-            <S.CommmentSubmitButton>댓글 작성</S.CommmentSubmitButton>
+            <S.CommentSubmitButton>댓글 작성</S.CommentSubmitButton>
           </S.CommentForm>
           {comments?.map((i, n) => <S.Comment>
             <S.AuthorDiv>
@@ -88,5 +153,6 @@ export default function Reading(props) {
         </S.Comments>
       </S.Main>
     </S.Background>
+    <ToastContainer />
   </>
 }
