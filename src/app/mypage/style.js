@@ -68,7 +68,7 @@ export const PageItem = styled.div`
 export const PostWrapper = styled.div`
   box-shadow: 0px 5px 20px 0px rgba(175, 175, 175, 0.2);
   width: 90%;
-  /* height: 390px; */
+  height: 420px;
   margin-bottom: 80px;
   border-radius: 10px;
   padding: 20px 40px;
@@ -87,7 +87,7 @@ export const PostWrapper = styled.div`
   }
 
   .NullImage {
-    margin-top: 20px;
+    margin-top: 50px;
   }
   button {
     color: #26400d;
@@ -110,7 +110,6 @@ export const PostList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* height: 300px; */
   /* overflow-y: visible; */
   &::-webkit-scrollbar {
     width: 8px;
