@@ -112,7 +112,6 @@ export default function Reading(props) {
       )
       .then((e) => {
         console.log(e.data);
-        GetContent();
       })
       .catch((e) => {
         console.log(e);
@@ -141,9 +140,6 @@ export default function Reading(props) {
           setTags(["프론트엔드", "저주", "프론트엔드의저주"]);
         }
       })
-      .then((e) => {
-        GetContent();
-      });
   };
   useEffect((e) => {
     GetContent();
