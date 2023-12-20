@@ -17,6 +17,7 @@ export default function Reading(props) {
   const [nicknames, setNicknames] = useState([])
   const [commentInput, setCommentInput] = useState('');
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(0)
   const id = props.params.id[0];
   const CheckBadwords = (e) => {
     const banlist = [
@@ -107,6 +108,7 @@ export default function Reading(props) {
         setAuthor(d.nickname_author)
         setDate(new Date(d.dt_modified))
         setComments(d.comments)
+        setLikes(d.likes)
         try {
           const content = JSON.parse(d.content)
           console.log(content)
@@ -146,7 +148,23 @@ export default function Reading(props) {
             </svg>
             신고
           </S.ClaimButton>
-          <S.LikeButton onClick={e => setLiked(a => !a)}>
+          <S.LikeButton onClick={async e => {
+            await axios.post(`${process.env.NEXT_PUBLIC_URL}/like/${id}/`, {}, {
+              headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access')
+              }
+            }).then(e => {
+              setLikes(e.data.like_count)
+              console.log(e.data)
+              if (e.data.message === '좋아요 취소') {
+                setLiked(false);
+              } else if (e.data.message === '좋아요') {
+                setLiked(true);
+              }
+            }).catch(e => {
+              console.log(e)
+            })
+          }}>
             {liked ?
               <svg width="32" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M26 8C26 4.68667 23.2013 2 19.7493 2C17.1693 2 14.9533 3.50133 14 5.644C13.0467 3.50133 10.8307 2 8.24933 2C4.8 2 2 4.68667 2 8C2 17.6267 14 24 14 24C14 24 26 17.6267 26 8Z" fill="#26400D" stroke="#26400D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -154,7 +172,7 @@ export default function Reading(props) {
                 <path d="M28 11C28 7.68667 25.2013 5 21.7493 5C19.1693 5 16.9533 6.50133 16 8.644C15.0467 6.50133 12.8307 5 10.2493 5C6.8 5 4 7.68667 4 11C4 20.6267 16 27 16 27C16 27 28 20.6267 28 11Z" stroke="#26400D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             }
-            {0}
+            {likes}
           </S.LikeButton>
         </S.FuncButtons>
         <S.Comments>

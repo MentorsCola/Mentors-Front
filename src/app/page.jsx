@@ -8,8 +8,9 @@ export default function Home() {
   const [pages, setPages] = useState("인기 글");
   const [dataList, setDataList] = useState({ boards: [] });
   const [nameList, setNameList] = useState();
+  const [search, setSearch] = useState('');
   const fetchdata = async () => {
-    const url = pages === "인기 글" ? "" : `/board/boards/`;
+    const url = pages === "인기 글" ? "/board/like/" : `/board/boards/`;
     await API.get(url)
       .then((e) => {
         setDataList(e.data);
@@ -28,14 +29,16 @@ export default function Home() {
         console.log(e);
       });
   };
+  const SubmitSearch = async e => {
 
+  }
   const findName = (id) => {
     return nameList.filter((i) => i.id == id)[0].name;
   };
   useEffect(() => {
-    fetchName();
-  }, []);
-  useEffect(() => {
+    if (!nameList) {
+      fetchName();
+    }
     fetchdata();
   }, [pages]);
 
@@ -57,7 +60,7 @@ export default function Home() {
             ))}
           </S.MenuBarList>
           <S.SearchBar>
-            <input />
+            <input value={search} onChange={e => setSearch(e.target.value)} />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="21"
@@ -81,7 +84,7 @@ export default function Home() {
               title={i.title}
               date={i.dt_created}
               username={findName(i.nickname_author)}
-              likes={21}
+              likes={i?.likes}
               id={i.id}
               key={i.id}
             />
