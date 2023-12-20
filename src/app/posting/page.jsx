@@ -283,7 +283,7 @@ export default function Posting() {
     <S.PreviewBackground
       dangerouslySetInnerHTML={{
         __html: new Showdown.Converter({ strikethrough: true }).makeHtml(
-          `# ${title}\n\n` + textarea.replace(/\n/g, "\n\n")
+          `# ${title || '제목을 입력해주세요'}\n\n` + textarea.replace(/\n/g, "\n\n")
         ),
       }}
     ></S.PreviewBackground>
