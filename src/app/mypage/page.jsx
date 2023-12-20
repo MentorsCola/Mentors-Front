@@ -1,20 +1,58 @@
 "use client";
 import Link from "next/link";
 import * as S from "./style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { API } from "../../api";
 export default function MyPage() {
-  const [username, setUsername] = useState("코가 없는 코뿔소");
+  const [username, setUsername] = useState("로딩중");
   const [pages, setPages] = useState("글");
-  const [data, setData] = useState([
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-  ]);
+  const [data, setData] = useState([]);
+  const [report, setReport] = useState([]);
   const router = useRouter();
+  const nickname_id = localStorage.getItem("user_nickname_id");
+  const GetName = () => {
+    API.get("/nickname/view/")
+      .then((e) => {
+        setUsername(e.data.filter((i) => i.id == nickname_id)[0].name);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const fetchPostList = () => {
+    API.get("/board/mypage/myboards/", {
+      headers: { Authorization: "Bearer " + localStorage.getItem("access") },
+    })
+      .then((e) => {
+        setData(e.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const fetchReportList = () => {
+    API.get("/board/mypage/report/", {
+      headers: { Authorization: "Bearer " + localStorage.getItem("access") },
+    })
+      .then((e) => {
+        setReport(e.data);
+        console.log(e.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    fetchPostList();
+    fetchReportList();
+    GetName();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -93,8 +131,8 @@ export default function MyPage() {
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="40"
-                        height="40"
-                        viewBox="0 0 57 56"
+                        height="30"
+                        viewBox="0 0 40 50"
                         fill="none"
                       >
                         <path
@@ -121,13 +159,23 @@ export default function MyPage() {
                     </>
                   )}
                 </p>
-                <S.PostList>
-                  {data.map((i) => (
-                    <Link href={`/reading/${i.id}`} key={i.id}>
-                      <S.postItem>js에 대해서 js는 뭘까 ?</S.postItem>
-                    </Link>
-                  ))}
-                </S.PostList>
+                {pages === "글" ? (
+                  <S.PostList>
+                    {data.map((i) => (
+                      <Link href={`/reading/${i.id}`} key={i.id}>
+                        <S.postItem>{i.title}</S.postItem>
+                      </Link>
+                    ))}
+                  </S.PostList>
+                ) : (
+                  <S.PostList>
+                    {report.map((i) => (
+                      <Link href={`/reading/${i.id}`} key={i.id}>
+                        <S.postItem>{i.title}</S.postItem>
+                      </Link>
+                    ))}
+                  </S.PostList>
+                )}
               </>
             ) : (
               <>
