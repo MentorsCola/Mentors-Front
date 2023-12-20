@@ -10,7 +10,7 @@ export default function Home() {
   const [nameList, setNameList] = useState();
   const [search, setSearch] = useState('');
   const fetchdata = async () => {
-    const url = pages === "인기 글" ? "" : `/board/boards/`;
+    const url = pages === "인기 글" ? "/board/like/" : `/board/boards/`;
     await API.get(url)
       .then((e) => {
         setDataList(e.data);
