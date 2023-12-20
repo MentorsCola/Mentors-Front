@@ -14,6 +14,7 @@ export const Main = styled.form`
   flex-direction: column;
   border-radius: 5px;
   padding: 25px 30px;
+  padding-top: 0px;
   color: #505050;
   a {
     margin-top: 20px;

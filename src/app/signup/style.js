@@ -14,6 +14,7 @@ export const Main = styled.form`
   flex-direction: column;
   border-radius: 5px;
   padding: 25px 30px;
+  padding-top: 0px;
   color: #505050;
 `;
 
@@ -34,16 +35,17 @@ export const Title = styled.h1`
   font-size: 25px;
   text-align: center;
   margin-top: 30px;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 `;
-export const Paragraph = styled.p`
-  margin-bottom: 10px;
+export const Paragraph = styled.p`  
   margin-top: 25px;
+  font-size: 15px;
 `;
 export const Input = styled.input`
   color: #505050;
   background-color: white;
   border: none;
+  margin-bottom: 5px;
   border-bottom: 1px solid #d9d9d9;
   padding-left: 2px;
   height: 30px;
@@ -93,7 +95,7 @@ export const Button = styled.button`
   font-weight: bold;
   width: 320px;
   border: none;
-  margin-top: 30px;
+  margin-top: 25px;
   border-radius: 2px;
   color: #fff;
 

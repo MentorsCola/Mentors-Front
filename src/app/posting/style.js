@@ -22,6 +22,7 @@ export const PostBackground = styled.div`
   height: 100vh;
   border-right: 3px solid #D9D9D9;
   padding: 50px;
+  padding-right: 10px;
 `
 
 export const PreviewBackground = styled.div`
@@ -32,6 +33,7 @@ export const PreviewBackground = styled.div`
   overflow-y: scroll;
   border-right: 3px solid #D9D9D9;
   padding: 50px;
+  padding-right: 10px;
   overflow-x: hidden;
   
   &::-webkit-scrollbar{
@@ -93,6 +95,7 @@ export const TagDiv = styled.div`
   align-items: center;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin-left: 10px;
   
   &::-webkit-scrollbar{
     height: 5px;
@@ -118,7 +121,6 @@ export const TagsInput = styled.input`
   outline: none;
   border: none;
   font-size: 18px;
-  font-weight: bold;
   &::placeholder{
     color: black;
   }
@@ -164,7 +166,7 @@ export const AddButton = styled.button`
 
 export const TextArea = styled.textarea`
   font-family: 'Pretendard-Regular';
-  height: 55vh;
+  height: 50vh;
   font-size: 18px;
   background-color: #F5F5F5;
   color: black;
