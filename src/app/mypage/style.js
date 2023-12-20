@@ -77,12 +77,13 @@ export const PostWrapper = styled.div`
   flex-direction: column;
   .subTitle {
     height: 30px;
-    margin-right: 65%;
     font-size: 20px;
     display: flex;
     align-items: center;
     gap: 14px;
     font-weight: 600;
+    width: 100%;
+    justify-content: start;
   }
 
   .NullImage {
