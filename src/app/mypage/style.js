@@ -8,11 +8,11 @@ export const PageWrapper = styled.div`
 `;
 
 export const MypageWrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   width: 900px;
-  gap: 20px;
+  gap: 40px;
   align-items: center;
 `;
 
@@ -68,7 +68,7 @@ export const PageItem = styled.div`
 export const PostWrapper = styled.div`
   box-shadow: 0px 5px 20px 0px rgba(175, 175, 175, 0.2);
   width: 90%;
-  /* height: 390px; */
+  height: 420px;
   margin-bottom: 80px;
   border-radius: 10px;
   padding: 20px 40px;
@@ -77,16 +77,17 @@ export const PostWrapper = styled.div`
   flex-direction: column;
   .subTitle {
     height: 30px;
-    margin-right: 65%;
     font-size: 20px;
     display: flex;
     align-items: center;
     gap: 14px;
     font-weight: 600;
+    width: 100%;
+    justify-content: start;
   }
 
   .NullImage {
-    margin-top: 20px;
+    margin-top: 50px;
   }
   button {
     color: #26400d;
@@ -109,7 +110,6 @@ export const PostList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* height: 300px; */
   /* overflow-y: visible; */
   &::-webkit-scrollbar {
     width: 8px;
