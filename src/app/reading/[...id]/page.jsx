@@ -17,6 +17,7 @@ export default function Reading(props) {
   const [nicknames, setNicknames] = useState([])
   const [commentInput, setCommentInput] = useState('');
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(0)
   const id = props.params.id[0];
   const CheckBadwords = (e) => {
     const banlist = [
@@ -107,6 +108,7 @@ export default function Reading(props) {
         setAuthor(d.nickname_author)
         setDate(new Date(d.dt_modified))
         setComments(d.comments)
+        setLikes(d.likes)
         try {
           const content = JSON.parse(d.content)
           console.log(content)
@@ -154,7 +156,7 @@ export default function Reading(props) {
                 <path d="M28 11C28 7.68667 25.2013 5 21.7493 5C19.1693 5 16.9533 6.50133 16 8.644C15.0467 6.50133 12.8307 5 10.2493 5C6.8 5 4 7.68667 4 11C4 20.6267 16 27 16 27C16 27 28 20.6267 28 11Z" stroke="#26400D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             }
-            {0}
+            {likes}
           </S.LikeButton>
         </S.FuncButtons>
         <S.Comments>

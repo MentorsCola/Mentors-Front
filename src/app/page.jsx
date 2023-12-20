@@ -84,7 +84,7 @@ export default function Home() {
               title={i.title}
               date={i.dt_created}
               username={findName(i.nickname_author)}
-              likes={21}
+              likes={i?.likes}
               id={i.id}
               key={i.id}
             />
