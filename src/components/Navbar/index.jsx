@@ -1,11 +1,27 @@
 import { useEffect, useState } from "react";
 import * as S from "./style";
 import Link from "next/link";
+import axios from "axios";
 export default function Navbar() {
   const [logined, setLogined] = useState(false);
+  const Refresh = async e => {
+    await axios.post(`${process.env.NEXT_PUBLIC_URL}/user/auth/refresh/`, { refresh: localStorage.getItem('refresh') }, {
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    }).then(e => {
+      localStorage.setItem('access', e.data.access)
+      localStorage.setItem('exp', new Date().getFullYear().toString() + new Date().getDate() + 1)
+    }).catch(e => {
+      console.log(e)
+    })
+  }
   useEffect(e => {
     if (localStorage.getItem('user_email')) {
       setLogined(localStorage.getItem('user_email').split('@')[0])
+    }
+    if (new Date().getFullYear().toString() + new Date().getDate() >= localStorage.getItem('exp')) {
+      Refresh();
     }
   }, []);
 
