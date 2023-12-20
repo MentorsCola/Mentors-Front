@@ -35,7 +35,7 @@ export default function MyPage() {
   };
 
   const fetchReportList = () => {
-    API.get("/board/mypage/report/", {
+    API.get("/board/mypage/myreport/", {
       headers: { Authorization: "Bearer " + localStorage.getItem("access") },
     })
       .then((e) => {
@@ -106,7 +106,7 @@ export default function MyPage() {
             ))}
           </S.PageList>
           <S.PostWrapper>
-            {data.length > 0 ? (
+            {(pages === "글" ? data.length : report.length) > 0 ? (
               <>
                 <p className="subTitle">
                   {pages === "글" ? (
