@@ -22,6 +22,7 @@ export const PostBackground = styled.div`
   height: 100vh;
   border-right: 3px solid #D9D9D9;
   padding: 50px;
+  padding-right: 10px;
 `
 
 export const PreviewBackground = styled.div`
@@ -32,6 +33,7 @@ export const PreviewBackground = styled.div`
   overflow-y: scroll;
   border-right: 3px solid #D9D9D9;
   padding: 50px;
+  padding-right: 10px;
   overflow-x: hidden;
   
   &::-webkit-scrollbar{
@@ -77,6 +79,9 @@ export const TitleInput = styled.input`
   border: none;
   font-size: 30px;
   font-weight: bold;
+  &::placeholder{
+    color: black;
+  }
 `
 export const DivideDiv = styled.div`
   background-color: #D9D9D9;
@@ -90,6 +95,7 @@ export const TagDiv = styled.div`
   align-items: center;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin-left: 10px;
   
   &::-webkit-scrollbar{
     height: 5px;
@@ -114,8 +120,10 @@ export const TagsInput = styled.input`
   background-color: #F5F5F5;
   outline: none;
   border: none;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
+  &::placeholder{
+    color: black;
+  }
 `
 
 export const AddButtons = styled.div`
@@ -158,13 +166,16 @@ export const AddButton = styled.button`
 
 export const TextArea = styled.textarea`
   font-family: 'Pretendard-Regular';
-  height: 55vh;
+  height: 50vh;
   font-size: 18px;
   background-color: #F5F5F5;
   color: black;
   border: none;
   outline:none;
   resize: none;
+  &::placeholder{
+    color: black;
+  }
   &::-webkit-scrollbar{
     width: 5px;
   }
@@ -174,9 +185,15 @@ export const TextArea = styled.textarea`
 `
 
 export const BottomButtons = styled.div`
+  border-top: 1px solid #D5CDCD;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 30px 20px;
+  width: 50vw;
   margin-top: 10px;
 `
 
@@ -197,22 +214,23 @@ export const Exit = styled.button`
 `
 export const BorderButtons = styled.div`
   display: flex;
+  margin-right: 20px;
 `
 
 export const BorderButton = styled.button`
   margin: 0 10px;
   font-size: 15px;
-  width: 80px;
+  width: 90px;
   cursor: pointer;
   background-color: #F5F5F5;
-  color: #858E96;
-  border: 3px solid #858E96;
+  color: #26400D;
+  border: 1px solid #858E96;
   border-radius: 3px;
   font-weight: bold;
-  padding: 3px 0;
+  padding: 5px 0;
   &:hover{
     background-color: #40631F;
-    border: 3px solid #40631F;
+    border: 1px solid #40631F;
     color: white;
   }
 `
