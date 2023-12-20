@@ -62,6 +62,7 @@ export const SearchBar = styled.label`
   align-items: center;
   height: fit-content;
   input {
+    color: black;
     border-radius: 55px;
     border: 1px solid #e7e7e7;
     background: #fff;

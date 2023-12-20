@@ -23,6 +23,7 @@ export default function Login() {
         localStorage.setItem('user_nickname_id', id_nickname)
         localStorage.setItem('is_staff', is_staff)
         localStorage.setItem('is_superuser', is_superuser)
+        localStorage.setItem('exp', new Date().getFullYear().toString() + new Date().getDate() + 1)
         toast.success('성공했습니다.', {
           position: "top-right",
           autoClose: 5000,

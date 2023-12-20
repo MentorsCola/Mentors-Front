@@ -18,6 +18,7 @@ export default function Reading(props) {
   const [nicknames, setNicknames] = useState([]);
   const [commentInput, setCommentInput] = useState("");
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
   const id = props.params.id[0];
   const router = useRouter();
   const checkLogin = () => {
@@ -134,6 +135,7 @@ export default function Reading(props) {
         setAuthor(d.nickname_author);
         setDate(new Date(d.dt_modified));
         setComments(d.comments);
+        setLikes(d.likes);
         try {
           const content = JSON.parse(d.content);
           console.log(content);
@@ -144,8 +146,8 @@ export default function Reading(props) {
           setTags(["프론트엔드", "저주", "프론트엔드의저주"]);
         }
       })
-      .catch((e) => {
-        console.log(e);
+      .then((e) => {
+        GetContent();
       });
   };
   useEffect((e) => {
@@ -190,7 +192,33 @@ export default function Reading(props) {
               </svg>
               신고
             </S.ClaimButton>
-            <S.LikeButton onClick={(e) => setLiked((a) => !a)}>
+            <S.LikeButton
+              onClick={async (e) => {
+                await axios
+                  .post(
+                    `${process.env.NEXT_PUBLIC_URL}/like/${id}/`,
+                    {},
+                    {
+                      headers: {
+                        Authorization:
+                          "Bearer " + localStorage.getItem("access"),
+                      },
+                    }
+                  )
+                  .then((e) => {
+                    setLikes(e.data.like_count);
+                    console.log(e.data);
+                    if (e.data.message === "좋아요 취소") {
+                      setLiked(false);
+                    } else if (e.data.message === "좋아요") {
+                      setLiked(true);
+                    }
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+              }}
+            >
               {liked ? (
                 <svg
                   width="32"
@@ -225,7 +253,7 @@ export default function Reading(props) {
                   />
                 </svg>
               )}
-              {0}
+              {likes}
             </S.LikeButton>
           </S.FuncButtons>
           <S.Comments>
