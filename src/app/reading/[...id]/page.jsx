@@ -19,6 +19,7 @@ export default function Reading(props) {
   const [commentInput, setCommentInput] = useState("");
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [localauthor, setLocalauthor] = useState('')
   const id = props.params.id[0];
   const router = useRouter();
   const checkLogin = () => {
@@ -111,6 +112,8 @@ export default function Reading(props) {
         }
       )
       .then((e) => {
+        GetContent();
+        setCommentInput('')
         console.log(e.data);
       })
       .catch((e) => {
@@ -140,8 +143,24 @@ export default function Reading(props) {
           setTags(["프론트엔드", "저주", "프론트엔드의저주"]);
         }
       })
+      .catch(e => {
+        window.location.href = '/not_found'
+      })
   };
+  const DeleteContent = async e => {
+    await axios.delete(`${process.env.NEXT_PUBLIC_URL}/board/boards/delete/${id}/`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('access')
+      }
+    }).then(e => {
+      console.log(e.data)
+      window.location.href = '/'
+    }).catch(e => {
+      console.log(e)
+    })
+  }
   useEffect((e) => {
+    setLocalauthor(localStorage.getItem('user_nickname_id'))
     GetContent();
     GetNicknames();
     checkLogin();
@@ -160,6 +179,7 @@ export default function Reading(props) {
           <S.AuthorDiv>
             <S.Author>{nicknames[author]}</S.Author>
             <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
+            {author.toString() === localauthor && <button onClick={DeleteContent}>X</button>}
           </S.AuthorDiv>
           <S.Content
             dangerouslySetInnerHTML={{
