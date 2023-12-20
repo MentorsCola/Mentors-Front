@@ -231,10 +231,23 @@ export default function Posting() {
         <S.AddButton onClick={e => PressKey('h4')}>H4</S.AddButton>
         <S.DivideButton />
         <S.AddButton onClick={e => PressKey('bold')}>B</S.AddButton>
-        <S.AddButton onClick={e => PressKey('italic')} style={{ fontStyle: 'italic' }}>I</S.AddButton>
-        <S.AddButton onClick={e => PressKey('cancel')} style={{ textDecoration: 'line-through' }}>T</S.AddButton>
+        <S.AddButton onClick={e => PressKey('italic')} style={{ fontStyle: 'italic' }}>
+          <svg width="13" height="13" viewBox="0 0 15 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.47 21V17.01H5.3V3.99H0.47V-1.43051e-06H14.66V3.99H9.8V17.01H14.66V21H0.47Z" fill="#858E96" />
+          </svg>
+        </S.AddButton>
+        <S.AddButton onClick={e => PressKey('cancel')} style={{ textDecoration: 'line-through' }}>
+          <svg width="15" height="13" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.69 21V4.05H2.25V-1.43051e-06H21.84V4.05H14.19V21H9.69Z" fill="#858E96" />
+            <path d="M0 11.55H24.09V13.05H0V11.55Z" fill="#858E96" />
+          </svg>
+        </S.AddButton>
         <S.DivideButton />
-        <S.AddButton onClick={e => PressKey('quote')}>”</S.AddButton>
+        <S.AddButton onClick={e => PressKey('quote')}>
+          <svg width="21" height="13" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.0957 0.166992L15.7988 14.9912H11.2334L14.0801 0.166992H20.0957ZM9.2998 0.166992L5.00293 14.9912H0.4375L3.28418 0.166992H9.2998Z" fill="#858E96" />
+          </svg>
+        </S.AddButton>
         <S.AddButton onClick={e => PressKey('link')}>
           <svg width="26" height="14" viewBox="0 0 26 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2.875 7C2.875 4.8625 4.6125 3.125 6.75 3.125H11.75V0.75H6.75C3.3 0.75 0.5 3.55 0.5 7C0.5 10.45 3.3 13.25 6.75 13.25H11.75V10.875H6.75C4.6125 10.875 2.875 9.1375 2.875 7ZM8 8.25H18V5.75H8V8.25ZM19.25 0.75H14.25V3.125H19.25C21.3875 3.125 23.125 4.8625 23.125 7C23.125 9.1375 21.3875 10.875 19.25 10.875H14.25V13.25H19.25C22.7 13.25 25.5 10.45 25.5 7C25.5 3.55 22.7 0.75 19.25 0.75Z" fill="#858E96" />
@@ -249,7 +262,9 @@ export default function Posting() {
           </label>
         </S.AddButton>
         <S.AddButton onClick={e => PressKey('code')}>
-          {'< >'}
+          <svg width="31" height="12" viewBox="0 0 31 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.345312 7.70312V4.91016L10.2867 0.691406V3.77734L3.76328 6.23828V6.375L10.2867 8.83594V11.9219L0.345312 7.70312ZM30.6742 7.70312L20.7328 11.9219V8.83594L27.2367 6.375V6.23828L20.7328 3.77734V0.691406L30.6742 4.91016V7.70312Z" fill="#858E96" />
+          </svg>
         </S.AddButton>
       </S.AddButtons>
       <S.TextArea
@@ -268,7 +283,7 @@ export default function Posting() {
     <S.PreviewBackground
       dangerouslySetInnerHTML={{
         __html: new Showdown.Converter({ strikethrough: true }).makeHtml(
-          `# ${title}` + textarea.replace(/\n/g, "\n\n")
+          `# ${title}\n\n` + textarea.replace(/\n/g, "\n\n")
         ),
       }}
     ></S.PreviewBackground>
