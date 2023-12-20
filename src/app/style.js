@@ -28,7 +28,7 @@ export const TopWrapper = styled.div`
 export const PostListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px 10px;
 `;
 
 export const MenuBarList = styled.div`

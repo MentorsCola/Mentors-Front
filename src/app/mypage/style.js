@@ -8,11 +8,11 @@ export const PageWrapper = styled.div`
 `;
 
 export const MypageWrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   width: 900px;
-  gap: 20px;
+  gap: 40px;
   align-items: center;
 `;
 
