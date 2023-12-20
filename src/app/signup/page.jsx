@@ -16,6 +16,16 @@ export default function Login() {
     await API.post(`/user/register/`, { email: email, password: pw })
       .then((e) => {
         console.log(e.data);
+        toast.success("성공했습니다.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       })
       .catch((e) => {
         console.log(e);
