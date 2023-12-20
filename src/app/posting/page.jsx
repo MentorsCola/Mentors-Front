@@ -164,32 +164,20 @@ export default function Posting() {
         break;
       case 'img':
         const FR = new FileReader();
-        let img
         const go = async e => {
-          const options = {
-            maxSizeMB: 1, // 허용하는 최대 사이즈 지정
-            maxWidthOrHeight: 1920, // 허용하는 최대 width, height 값 지정
-            useWebWorker: true // webworker 사용 여부
-          }
-          try {
-            img = await imageCompression(file.files[0], options);
-          } catch (e) {
-            console.log(e)
-          } finally {
-            FR.readAsDataURL(img)
-            FR.onloadend = e => {
-              const blobURL = URL.createObjectURL(new Blob([file.files[0]]))
-              let p_list = {
-                id: blobURL,
-                text: e.target.result
-              }
-              setImglist(a => [...a, p_list])
-              press = `\n![](${blobURL})\n\n`;
-              setTextarea(a => a + press);
+          FR.readAsDataURL(file.files[0])
+          FR.onloadend = e => {
+            const blobURL = URL.createObjectURL(new Blob([file.files[0]]))
+            let p_list = {
+              id: blobURL,
+              text: e.target.result
             }
+            setImglist(a => [...a, p_list])
+            press = `\n![](${blobURL})\n\n`;
+            setTextarea(a => a + press);
           }
         }
-        go();
+        go()
         break;
       case "link":
         press = `\n[제목](https://example.com) `;
