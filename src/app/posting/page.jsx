@@ -37,8 +37,9 @@ export default function Posting() {
     }
   };
   const Exiting = (e) => {
-    if (textarea.length > 0 && confirm("정말로 나가시겠습니까?")) {
+    if (confirm("정말로 나가시겠습니까?")) {
       setTextarea("");
+      window.location.href = '/'
     }
   };
   const CheckBadwords = (e) => {
@@ -267,7 +268,7 @@ export default function Posting() {
     <S.PreviewBackground
       dangerouslySetInnerHTML={{
         __html: new Showdown.Converter({ strikethrough: true }).makeHtml(
-          textarea.replace(/\n/g, "\n\n")
+          `# ${title}` + textarea.replace(/\n/g, "\n\n")
         ),
       }}
     ></S.PreviewBackground>
