@@ -27,11 +27,6 @@ export default function Reading(props) {
       router.push("/");
     }
   };
-  useEffect(() => {
-    checkLogin();
-  }, []);
-  checkLogin();
-
   const CheckBadwords = (e) => {
     const banlist = [
       "시발",
@@ -153,6 +148,7 @@ export default function Reading(props) {
   useEffect((e) => {
     GetContent();
     GetNicknames();
+    checkLogin();
   }, []);
   return (
     <>
