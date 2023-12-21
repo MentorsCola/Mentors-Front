@@ -39,6 +39,7 @@ export default function MyPage() {
       headers: { Authorization: "Bearer " + localStorage.getItem("access") },
     })
       .then((e) => {
+        console.log(e.data)
         setReport(e.data);
       })
       .catch((e) => {
@@ -169,7 +170,7 @@ export default function MyPage() {
                 ) : (
                   <S.PostList>
                     {report.map((i) => (
-                      <Link href={`/reading/${i.id}`} key={i.id}>
+                      <Link href={`/reading/${i.board}`} key={i.board}>
                         <S.postItem>{i.title}</S.postItem>
                       </Link>
                     ))}

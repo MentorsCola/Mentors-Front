@@ -142,7 +142,10 @@ export default function Reading(props) {
       })
       .catch(e => {
         console.log(e)
-        window.location.href = '/not_found'
+        if (localStorage.getItem('access')) {
+          window.location.href = '/not_found'
+        }
+        window.location.href = '/login'
       })
   };
   const DeleteContent = async e => {

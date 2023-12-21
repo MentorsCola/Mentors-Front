@@ -31,8 +31,11 @@ export default function Posting() {
     setTags([...tags, tag.trim()]);
   };
   const Deleting = (e) => {
-    if (textarea.length > 0 && confirm("정말로 지우시겠습니까?")) {
+    if ((textarea.length > 0 || title.length > 0 || tags.length > 0) && confirm("정말로 지우시겠습니까?")) {
       setTextarea("");
+      setTitle("")
+      setTags([])
+      setTag('')
     }
   };
   const Exiting = (e) => {
@@ -77,6 +80,10 @@ export default function Posting() {
       "ㄴㄱㅁ",
       "느금",
       "@ㅐ미",
+      "꺼져",
+      "병신",
+      "미친",
+      "염병"
     ];
     let found = false;
     banlist.forEach((word) => {
