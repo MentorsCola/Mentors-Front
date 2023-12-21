@@ -125,6 +125,9 @@ export default function Reading(props) {
       })
       .then((e) => {
         const d = e.data;
+        const tags = d.tags[0].tags.replace(/\[/g, '').replace(/]/g, '').replace(/'/g, '').split(',')
+        // console.log(d.tags[0].tags.replace(/\[/g, '').replace(/]/g, '').replace(/'/g, '').split(','))
+        setTags(tags)
         setTitle(d.title);
         setAuthor(d.nickname_author);
         setDate(new Date(d.dt_modified));
@@ -136,7 +139,6 @@ export default function Reading(props) {
           setContent(content.content);
         } catch {
           setContent(d.content);
-          setTags(["프론트엔드", "저주", "프론트엔드의저주"]);
         }
       })
       .catch(e => {
