@@ -35,7 +35,7 @@ export default function Login() {
         })
         setTimeout(() => {
           window.location.href = '/'
-        }, 2000);
+        }, 500);
       }).catch(e => {
         console.log(e)
         toast.error('이메일과 비밀번호를 확인해주세요', {

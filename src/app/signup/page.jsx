@@ -4,6 +4,8 @@ import * as S from "./style";
 import Link from "next/link";
 import axios from "axios";
 import { API } from "../../api";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -25,9 +27,11 @@ export default function Login() {
           progress: undefined,
           theme: "light",
         });
+        window.location.href = '/login'
       })
       .catch((e) => {
         console.log(e);
+        toast.error('이미 있는 이메일입니다.');
       });
   };
   const GetNicknames = async (e) => {
@@ -92,6 +96,7 @@ export default function Login() {
           <Link href={"/login"}>로그인</Link>
         </S.ExistAccount>
       </S.Main>
+      <ToastContainer />
     </S.Back>
   );
 }

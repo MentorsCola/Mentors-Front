@@ -39,6 +39,10 @@ export const Tag = styled.span`
 export const AuthorDiv = styled.div`
   margin: 15px 0;
   display: flex;
+  justify-content: space-between;
+  button{
+    cursor: pointer;
+  }
 `
 export const Author = styled.strong`
   margin-right: 20px;

@@ -33,7 +33,7 @@ export default function Home() {
 
   }
   const findName = (id) => {
-    return nameList.filter((i) => i.id == id)[0].name;
+    return nameList?.filter((i) => i.id == id)[0].name;
   };
   useEffect(() => {
     if (!nameList) {

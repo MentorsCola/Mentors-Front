@@ -38,6 +38,9 @@ export default function Posting() {
   const Exiting = (e) => {
     if (confirm("정말로 나가시겠습니까?")) {
       setTextarea("");
+      setTitle("")
+      setTags([])
+      setTag('')
       window.location.href = '/'
     }
   };
@@ -124,7 +127,7 @@ export default function Posting() {
         await axios.post(`${process.env.NEXT_PUBLIC_URL}/tag/tags/${id}/`, { tags: tags },
           { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
           .then(e => {
-            toast.success('성공적', {
+            toast.success('성공적으로 처리되었습니다.', {
               position: "top-right",
               autoClose: 5000,
             });
@@ -175,6 +178,7 @@ export default function Posting() {
             setImglist(a => [...a, p_list])
             press = `\n![](${blobURL})\n\n`;
             setTextarea(a => a + press);
+            setFile('')
           }
         }
         go()

@@ -146,6 +146,9 @@ export default function Reading(props) {
       })
   };
   const DeleteContent = async e => {
+    if (!confirm('글을 삭제하시겠습니까?')) {
+      return;
+    }
     await axios.delete(`${process.env.NEXT_PUBLIC_URL}/board/boards/delete/${id}/`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem('access')
@@ -174,9 +177,11 @@ export default function Reading(props) {
             ))}
           </S.Tags>
           <S.AuthorDiv>
-            <S.Author>{nicknames[author]}</S.Author>
-            <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
-            {author.toString() === localauthor && <button onClick={DeleteContent}>X</button>}
+            <div>
+              <S.Author>{nicknames[author]}</S.Author>
+              <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
+            </div>
+            {author.toString() === localauthor && <button onClick={DeleteContent}>삭제</button>}
           </S.AuthorDiv>
           <S.Content
             dangerouslySetInnerHTML={{
