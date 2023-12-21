@@ -17,7 +17,7 @@ export default function Login() {
     setVerified(true);
     await API.post(`/user/register/`, { email: email, password: pw })
       .then((e) => {
-        toast.success("성공했습니다.", {
+        toast.success("회원가입을 성공했습니다.", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

@@ -23,7 +23,7 @@ export default function Login() {
         localStorage.setItem('is_staff', is_staff)
         localStorage.setItem('is_superuser', is_superuser)
         localStorage.setItem('exp', new Date().getFullYear().toString() + new Date().getDate() + 1)
-        toast.success('성공했습니다.', {
+        toast.success('로그인을 성공했습니다.', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

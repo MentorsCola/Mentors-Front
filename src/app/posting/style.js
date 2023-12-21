@@ -108,7 +108,8 @@ export const TagDiv = styled.div`
 export const Tag = styled.p`
   margin: 0 5px;
   font-size: 15px;
-  /* min-width: 90px; */
+  white-space: nowrap;
+  display: inline-flex;
   cursor: pointer;
   background-color: #F5F5F5;
   color: #26400D;

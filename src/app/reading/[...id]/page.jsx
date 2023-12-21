@@ -164,9 +164,10 @@ export default function Reading(props) {
       headers: { 'Authorization': "Bearer " + localStorage.getItem('access') }
     }).then(e => {
       // console.log(e.data)
-      toast.success("성공적으로 처리되었습니다.")
+      toast.success("성공적으로 신고 처리되었습니다.")
     }).catch(e => {
       console.log(e)
+      toast.error("이미 신고 처리되었습니다.")
     })
   }
   useEffect((e) => {

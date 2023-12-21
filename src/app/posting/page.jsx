@@ -127,7 +127,7 @@ export default function Posting() {
         await axios.post(`${process.env.NEXT_PUBLIC_URL}/tag/tags/${id}/`, { tags: tags },
           { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
           .then(e => {
-            toast.success('성공적으로 처리되었습니다.', {
+            toast.success('성공적으로 게시 처리되었습니다.', {
               position: "top-right",
               autoClose: 5000,
             });

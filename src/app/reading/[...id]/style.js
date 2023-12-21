@@ -93,6 +93,7 @@ export const ClaimButton = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+  cursor: pointer;
 `
 
 export const LikeButton = styled.div`
