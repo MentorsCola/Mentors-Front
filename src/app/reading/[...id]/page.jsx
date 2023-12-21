@@ -159,6 +159,16 @@ export default function Reading(props) {
       console.log(e)
     })
   }
+  const Claim = async e => {
+    await axios.post(`${process.env.NEXT_PUBLIC_URL}/report/reports/${id}/`, {}, {
+      headers: { 'Authorization': "Bearer " + localStorage.getItem('access') }
+    }).then(e => {
+      // console.log(e.data)
+      toast.success("성공적으로 처리되었습니다.")
+    }).catch(e => {
+      console.log(e)
+    })
+  }
   useEffect((e) => {
     setLocalauthor(localStorage.getItem('user_nickname_id'))
     GetContent();
@@ -191,7 +201,7 @@ export default function Reading(props) {
             }}
           />
           <S.FuncButtons>
-            <S.ClaimButton>
+            <S.ClaimButton onClick={Claim}>
               <svg
                 width="32"
                 height="32"
