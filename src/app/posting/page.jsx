@@ -4,7 +4,6 @@ import * as S from "./style";
 import Showdown from "showdown";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import imageCompression from 'browser-image-compression';
 import axios from "axios";
 
 export default function Posting() {
@@ -39,6 +38,9 @@ export default function Posting() {
   const Exiting = (e) => {
     if (confirm("정말로 나가시겠습니까?")) {
       setTextarea("");
+      setTitle("")
+      setTags([])
+      setTag('')
       window.location.href = '/'
     }
   };
@@ -111,8 +113,6 @@ export default function Posting() {
       });
       return;
     }
-    //textarea.replace(/\n/g, '\n\n')
-    // await axios
     let sendText = textarea;
     imglist.forEach(({ id, text }) => {
       const letter = new RegExp(id, "gi")
@@ -120,20 +120,23 @@ export default function Posting() {
     })
     await axios.post(`${process.env.NEXT_PUBLIC_URL}/board/boards/post/`, {
       title: title,
-      content: JSON.stringify({
-        tags: tags,
-        content: sendText
-      })
+      content: sendText
     }, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
-      .then(e => {
-        console.log(e.data)
-        toast.success('성공적', {
-          position: "top-right",
-          autoClose: 5000,
-        });
-        setTimeout(() => {
-          window.location.href = `/reading/${e.data.id}`
-        }, 1000);
+      .then(async e => {
+        const id = e.data.id
+        await axios.post(`${process.env.NEXT_PUBLIC_URL}/tag/tags/${id}/`, { tags: tags },
+          { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
+          .then(e => {
+            toast.success('성공적으로 게시 처리되었습니다.', {
+              position: "top-right",
+              autoClose: 5000,
+            });
+            setTimeout(() => {
+              window.location.href = `/reading/${id}`
+            }, 1000);
+          }).catch(e => {
+            console.log(e);
+          })
       }).catch(e => {
         console.log(e)
       })
@@ -164,32 +167,21 @@ export default function Posting() {
         break;
       case 'img':
         const FR = new FileReader();
-        let img
         const go = async e => {
-          const options = {
-            maxSizeMB: 1, // 허용하는 최대 사이즈 지정
-            maxWidthOrHeight: 1920, // 허용하는 최대 width, height 값 지정
-            useWebWorker: true // webworker 사용 여부
-          }
-          try {
-            img = await imageCompression(file.files[0], options);
-          } catch (e) {
-            console.log(e)
-          } finally {
-            FR.readAsDataURL(img)
-            FR.onloadend = e => {
-              const blobURL = URL.createObjectURL(new Blob([file.files[0]]))
-              let p_list = {
-                id: blobURL,
-                text: e.target.result
-              }
-              setImglist(a => [...a, p_list])
-              press = `\n![](${blobURL})\n\n`;
-              setTextarea(a => a + press);
+          FR.readAsDataURL(file.files[0])
+          FR.onloadend = e => {
+            const blobURL = URL.createObjectURL(new Blob([file.files[0]]))
+            let p_list = {
+              id: blobURL,
+              text: e.target.result
             }
+            setImglist(a => [...a, p_list])
+            press = `\n![](${blobURL})\n\n`;
+            setTextarea(a => a + press);
+            setFile('')
           }
         }
-        go();
+        go()
         break;
       case "link":
         press = `\n[제목](https://example.com) `;

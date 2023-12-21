@@ -106,13 +106,17 @@ export const TagDiv = styled.div`
 `
 
 export const Tag = styled.p`
-  background-color: #8ABF54;
-  padding: 10px;  
-  white-space: nowrap;
-  border-radius: 10px;
-  display: inline-flex;
   margin: 0 5px;
-  color: white;
+  font-size: 15px;
+  white-space: nowrap;
+  display: inline-flex;
+  cursor: pointer;
+  background-color: #F5F5F5;
+  color: #26400D;
+  border: 1px solid #858E96;
+  border-radius: 3px;
+  font-weight: bold;
+  padding: 5px 10px;
 `
 
 export const TagsInput = styled.input`

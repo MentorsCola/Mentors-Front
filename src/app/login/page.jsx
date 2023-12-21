@@ -13,7 +13,6 @@ export default function Login() {
   const LoginFun = async e => {
     await axios.post(`${url}/user/users/`, { email: email, password: pw })
       .then(e => {
-        console.log(e.data)
         const { access, refresh } = e.data.token;
         const { email, id, id_nickname, is_staff, is_superuser } = e.data.user;
         localStorage.setItem('access', access)
@@ -24,7 +23,7 @@ export default function Login() {
         localStorage.setItem('is_staff', is_staff)
         localStorage.setItem('is_superuser', is_superuser)
         localStorage.setItem('exp', new Date().getFullYear().toString() + new Date().getDate() + 1)
-        toast.success('성공했습니다.', {
+        toast.success('로그인을 성공했습니다.', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -36,7 +35,7 @@ export default function Login() {
         })
         setTimeout(() => {
           window.location.href = '/'
-        }, 2000);
+        }, 500);
       }).catch(e => {
         console.log(e)
         toast.error('이메일과 비밀번호를 확인해주세요', {

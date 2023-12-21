@@ -19,6 +19,7 @@ export default function Reading(props) {
   const [commentInput, setCommentInput] = useState("");
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [localauthor, setLocalauthor] = useState('')
   const id = props.params.id[0];
   const router = useRouter();
   const checkLogin = () => {
@@ -74,7 +75,6 @@ export default function Reading(props) {
     await axios
       .get(`${process.env.NEXT_PUBLIC_URL}/nickname/view`)
       .then((e) => {
-        console.log(e.data);
         let list = [];
         e.data.forEach((e) => {
           list[e.id] = e.name;
@@ -111,7 +111,8 @@ export default function Reading(props) {
         }
       )
       .then((e) => {
-        console.log(e.data);
+        GetContent();
+        setCommentInput('')
       })
       .catch((e) => {
         console.log(e);
@@ -123,8 +124,9 @@ export default function Reading(props) {
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
       })
       .then((e) => {
-        console.log(e.data);
         const d = e.data;
+        const tags = d?.tags[0]?.tags?.replace(/\[/g, '').replace(/]/g, '').replace(/'/g, '').split(',')
+        setTags(tags || [])
         setTitle(d.title);
         setAuthor(d.nickname_author);
         setDate(new Date(d.dt_modified));
@@ -132,16 +134,44 @@ export default function Reading(props) {
         setLikes(d.likes);
         try {
           const content = JSON.parse(d.content);
-          console.log(content);
           setTags(content.tags);
           setContent(content.content);
         } catch {
           setContent(d.content);
-          setTags(["프론트엔드", "저주", "프론트엔드의저주"]);
         }
       })
+      .catch(e => {
+        console.log(e)
+        window.location.href = '/not_found'
+      })
   };
+  const DeleteContent = async e => {
+    if (!confirm('글을 삭제하시겠습니까?')) {
+      return;
+    }
+    await axios.delete(`${process.env.NEXT_PUBLIC_URL}/board/boards/delete/${id}/`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('access')
+      }
+    }).then(e => {
+      window.location.href = '/'
+    }).catch(e => {
+      console.log(e)
+    })
+  }
+  const Claim = async e => {
+    await axios.post(`${process.env.NEXT_PUBLIC_URL}/report/reports/${id}/`, {}, {
+      headers: { 'Authorization': "Bearer " + localStorage.getItem('access') }
+    }).then(e => {
+      // console.log(e.data)
+      toast.success("성공적으로 신고 처리되었습니다.")
+    }).catch(e => {
+      console.log(e)
+      toast.error("이미 신고 처리되었습니다.")
+    })
+  }
   useEffect((e) => {
+    setLocalauthor(localStorage.getItem('user_nickname_id'))
     GetContent();
     GetNicknames();
     checkLogin();
@@ -158,8 +188,11 @@ export default function Reading(props) {
             ))}
           </S.Tags>
           <S.AuthorDiv>
-            <S.Author>{nicknames[author]}</S.Author>
-            <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
+            <div>
+              <S.Author>{nicknames[author]}</S.Author>
+              <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
+            </div>
+            {author.toString() === localauthor && <button onClick={DeleteContent}>삭제</button>}
           </S.AuthorDiv>
           <S.Content
             dangerouslySetInnerHTML={{
@@ -169,7 +202,7 @@ export default function Reading(props) {
             }}
           />
           <S.FuncButtons>
-            <S.ClaimButton>
+            <S.ClaimButton onClick={Claim}>
               <svg
                 width="32"
                 height="32"
@@ -199,7 +232,6 @@ export default function Reading(props) {
                   )
                   .then((e) => {
                     setLikes(e.data.like_count);
-                    console.log(e.data);
                     if (e.data.message === "좋아요 취소") {
                       setLiked(false);
                     } else if (e.data.message === "좋아요") {
