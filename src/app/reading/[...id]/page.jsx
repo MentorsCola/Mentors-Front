@@ -75,7 +75,6 @@ export default function Reading(props) {
     await axios
       .get(`${process.env.NEXT_PUBLIC_URL}/nickname/view`)
       .then((e) => {
-        console.log(e.data);
         let list = [];
         e.data.forEach((e) => {
           list[e.id] = e.name;
@@ -114,7 +113,6 @@ export default function Reading(props) {
       .then((e) => {
         GetContent();
         setCommentInput('')
-        console.log(e.data);
       })
       .catch((e) => {
         console.log(e);
@@ -126,7 +124,6 @@ export default function Reading(props) {
         headers: { Authorization: "Bearer " + localStorage.getItem("access") },
       })
       .then((e) => {
-        console.log(e.data);
         const d = e.data;
         setTitle(d.title);
         setAuthor(d.nickname_author);
@@ -135,7 +132,6 @@ export default function Reading(props) {
         setLikes(d.likes);
         try {
           const content = JSON.parse(d.content);
-          console.log(content);
           setTags(content.tags);
           setContent(content.content);
         } catch {
@@ -153,7 +149,6 @@ export default function Reading(props) {
         Authorization: "Bearer " + localStorage.getItem('access')
       }
     }).then(e => {
-      console.log(e.data)
       window.location.href = '/'
     }).catch(e => {
       console.log(e)
@@ -219,7 +214,6 @@ export default function Reading(props) {
                   )
                   .then((e) => {
                     setLikes(e.data.like_count);
-                    console.log(e.data);
                     if (e.data.message === "좋아요 취소") {
                       setLiked(false);
                     } else if (e.data.message === "좋아요") {

@@ -13,7 +13,6 @@ export default function Login() {
   const LoginFun = async e => {
     await axios.post(`${url}/user/users/`, { email: email, password: pw })
       .then(e => {
-        console.log(e.data)
         const { access, refresh } = e.data.token;
         const { email, id, id_nickname, is_staff, is_superuser } = e.data.user;
         localStorage.setItem('access', access)

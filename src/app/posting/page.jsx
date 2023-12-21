@@ -126,7 +126,6 @@ export default function Posting() {
       })
     }, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
       .then(e => {
-        console.log(e.data)
         toast.success('성공적', {
           position: "top-right",
           autoClose: 5000,

@@ -15,7 +15,6 @@ export default function Login() {
     setVerified(true);
     await API.post(`/user/register/`, { email: email, password: pw })
       .then((e) => {
-        console.log(e.data);
         toast.success("성공했습니다.", {
           position: "top-right",
           autoClose: 5000,

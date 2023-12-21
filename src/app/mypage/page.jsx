@@ -40,7 +40,6 @@ export default function MyPage() {
     })
       .then((e) => {
         setReport(e.data);
-        console.log(e.data);
       })
       .catch((e) => {
         console.log(e);
