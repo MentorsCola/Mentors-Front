@@ -125,9 +125,8 @@ export default function Reading(props) {
       })
       .then((e) => {
         const d = e.data;
-        const tags = d.tags[0].tags.replace(/\[/g, '').replace(/]/g, '').replace(/'/g, '').split(',')
-        // console.log(d.tags[0].tags.replace(/\[/g, '').replace(/]/g, '').replace(/'/g, '').split(','))
-        setTags(tags)
+        const tags = d?.tags[0]?.tags?.replace(/\[/g, '').replace(/]/g, '').replace(/'/g, '').split(',')
+        setTags(tags || [])
         setTitle(d.title);
         setAuthor(d.nickname_author);
         setDate(new Date(d.dt_modified));
@@ -142,6 +141,7 @@ export default function Reading(props) {
         }
       })
       .catch(e => {
+        console.log(e)
         window.location.href = '/not_found'
       })
   };

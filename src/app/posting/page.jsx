@@ -4,7 +4,6 @@ import * as S from "./style";
 import Showdown from "showdown";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import imageCompression from 'browser-image-compression';
 import axios from "axios";
 
 export default function Posting() {
