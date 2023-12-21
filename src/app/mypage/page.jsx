@@ -5,17 +5,20 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { API } from "../../api";
+
 export default function MyPage() {
   const [username, setUsername] = useState("로딩중");
   const [pages, setPages] = useState("글");
   const [data, setData] = useState([]);
   const [report, setReport] = useState([]);
+  const [nicknameData, setNicknameData] = useState([]);
   const router = useRouter();
   const nickname_id = localStorage.getItem("user_nickname_id");
   const GetName = () => {
     API.get("/nickname/view/")
       .then((e) => {
         setUsername(e.data.filter((i) => i.id == nickname_id)[0].name);
+        setNicknameData(e.data);
       })
       .catch((e) => {
         console.log(e);
@@ -162,7 +165,12 @@ export default function MyPage() {
                   <S.PostList>
                     {data.map((i) => (
                       <Link href={`/reading/${i.id}`} key={i.id}>
-                        <S.postItem>{i.title}</S.postItem>
+                        <S.postItem>
+                          <p>{i.title}</p>
+                          <p>
+                            {i.dt_modified.split("T")[0].replace(/-/g, ".")}
+                          </p>
+                        </S.postItem>
                       </Link>
                     ))}
                   </S.PostList>
@@ -170,7 +178,15 @@ export default function MyPage() {
                   <S.PostList>
                     {report.map((i) => (
                       <Link href={`/reading/${i.id}`} key={i.id}>
-                        <S.postItem>{i.title}</S.postItem>
+                        <S.postItem>
+                          <p>{i.title}</p>
+                          <p>
+                            {
+                              nicknameData.filter((item) => item.id === i.id)[0]
+                                .name
+                            }
+                          </p>
+                        </S.postItem>
                       </Link>
                     ))}
                   </S.PostList>
