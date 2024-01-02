@@ -127,7 +127,7 @@ export default function Posting() {
     })
     await axios.post(`${process.env.NEXT_PUBLIC_URL}/board/boards/post/`, {
       title: title,
-      content: sendText
+      content: sendText.replace(/\n/g, '\n\n')
     }, { headers: { 'Authorization': "Bearer " + localStorage.getItem('access') } })
       .then(async e => {
         const id = e.data.id
@@ -210,11 +210,13 @@ export default function Posting() {
     document.querySelector('textarea').setSelectionRange(current + press.length, current + textarea.length);
   }
   useEffect(e => {
+    document.title = '글쓰기'
     if (!file) {
       return;
     }
     PressKey('img')
     setFile(null)
+    //eslint-disable-next-line
   }, [file])
   return <S.Background>
     <S.PostBackground>

@@ -11,11 +11,11 @@ export default function MyPage() {
   const [data, setData] = useState([]);
   const [report, setReport] = useState([]);
   const router = useRouter();
-  const nickname_id = localStorage.getItem("user_nickname_id");
+  // const nickname_id = localStorage.getItem("user_nickname_id");
   const GetName = () => {
     API.get("/nickname/view/")
       .then((e) => {
-        setUsername(e.data.filter((i) => i.id == nickname_id)[0].name);
+        setUsername(e.data.filter((i) => i.id == localStorage.getItem("user_nickname_id"))[0].name);
       })
       .catch((e) => {
         console.log(e);
@@ -51,6 +51,7 @@ export default function MyPage() {
     fetchPostList();
     fetchReportList();
     GetName();
+    //eslint-disable-next-line
   }, []);
 
   return (
