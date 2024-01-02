@@ -127,4 +127,6 @@ export const postItem = styled.div`
   background-color: #afafaf;
   border-radius: 5px;
   background-color: #afafaf1a;
+  display: flex;
+  justify-content: space-between;
 `;
