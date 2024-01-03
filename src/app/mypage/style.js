@@ -110,7 +110,7 @@ export const PostList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* overflow-y: visible; */
+  overflow-y: auto;
   &::-webkit-scrollbar {
     width: 8px;
   }
