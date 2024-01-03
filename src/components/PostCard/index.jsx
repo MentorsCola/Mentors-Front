@@ -1,8 +1,9 @@
 import Link from "next/link";
 import * as S from "./style";
+import { useEffect } from "react";
 
 export default function PostCard({ id, title, date, username, likes }) {
-  const postDate = date.slice(0, 9).split("-");
+  const postDate = date.split('T')[0].split("-");
   return (
     <Link href={`/reading/${id}`}>
       <S.PostCardWrapper>

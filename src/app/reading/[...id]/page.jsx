@@ -178,6 +178,7 @@ export default function Reading(props) {
     GetContent();
     GetNicknames();
     checkLogin();
+    //eslint-disable-next-line
   }, []);
   return (
     <>
@@ -193,7 +194,7 @@ export default function Reading(props) {
           <S.AuthorDiv>
             <div>
               <S.Author>{nicknames[author]}</S.Author>
-              <S.Date>{`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일`}</S.Date>
+              <S.Date>{`${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`}</S.Date>
             </div>
             {author.toString() === localauthor && <button onClick={DeleteContent}>삭제</button>}
           </S.AuthorDiv>
@@ -294,7 +295,7 @@ export default function Reading(props) {
               <S.CommentSubmitButton>댓글 작성</S.CommentSubmitButton>
             </S.CommentForm>
             {comments?.map((i, n) => (
-              <S.Comment>
+              <S.Comment key={n}>
                 <S.AuthorDiv>
                   <S.Author>{nicknames[i.nickname]}</S.Author>
                 </S.AuthorDiv>

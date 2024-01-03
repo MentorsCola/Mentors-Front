@@ -40,6 +40,7 @@ export default function Home() {
       fetchName();
     }
     fetchdata();
+    //eslint-disable-next-line
   }, [pages]);
 
   return (
